@@ -67,10 +67,16 @@ class VestaPaymentRouter(models.AbstractModel):
 
     @api.model
     def _blocked_reason(self, provider, stats, now=None):
-        """Return why routing skips a provider right now, or False."""
+        """Return why routing skips a provider right now, or False.
+
+        `stats` may carry the success rate of the alert window (`success_rate`, set by
+        :meth:`_add_health`) when the company asks for a minimum success rate.
+        """
         now = now or fields.Datetime.now()
         if provider.vesta_paused_until and provider.vesta_paused_until > now:
             return "paused"
+        if stats.get("low_success"):
+            return "low_success"
         if provider.vesta_daily_count_limit and stats["done"] >= provider.vesta_daily_count_limit:
             return "count_limit"
         if provider.vesta_daily_amount_limit and stats["amount"] >= provider.vesta_daily_amount_limit:
@@ -87,6 +93,24 @@ class VestaPaymentRouter(models.AbstractModel):
         providers = providers.sorted(lambda p: (p.sequence, p.id))
         eligible = providers.filtered(lambda p: not self._blocked_reason(p, usage[p.id]))
         return eligible or providers
+
+    @api.model
+    def _add_health(self, providers, usage, company):
+        """Flag in `usage` the providers whose recent success rate is below the company's minimum."""
+        minimum = company.vesta_route_min_success
+        if not minimum or not providers:
+            return usage
+        since = fields.Datetime.now() - timedelta(minutes=company.vesta_alert_window or 60)
+        stats = self.env["vesta.payment.event"]._failure_stats(providers, since)
+        for provider in providers:
+            done, failed = stats[provider.id]
+            total = done + failed
+            rate = round(100 * done / total) if total else None
+            usage[provider.id]["success_rate"] = rate
+            usage[provider.id]["low_success"] = (
+                rate is not None and total >= max(company.vesta_alert_min_payments, 1) and rate < minimum
+            )
+        return usage
 
     # === DECISION === #
 
@@ -141,16 +165,18 @@ class VestaPaymentRouter(models.AbstractModel):
         company = company or self.env.company
         banks = providers.filtered("is_vesta_bank")
         mode = company.vesta_routing_mode
-        if not banks or mode == "customer":
+        if not banks:
             return providers, banks.browse()
-        usage = self._usage(banks)
+        usage = self._add_health(banks, self._usage(banks), company)
         candidates = self._candidates(banks, usage)
+        if mode == "customer":  # Unhealthy banks are hidden, the others keep their order
+            return (providers - banks) | candidates, banks.browse()
         chosen = self._pick(candidates, usage, mode)
         shown = candidates if company.vesta_routing_show_all else chosen
         return (providers - banks) | shown, chosen
 
     @api.model
-    def _preview(self, providers, mode, size=const.ROUTING_PREVIEW_SIZE):
+    def _preview(self, providers, mode, size=const.ROUTING_PREVIEW_SIZE, company=None):
         """Simulate the next routing decisions from today's usage.
 
         :return: The providers that would take the next `size` payments, in order.
@@ -158,7 +184,7 @@ class VestaPaymentRouter(models.AbstractModel):
         """
         if mode == "customer" or not providers:
             return []
-        usage = self._usage(providers)
+        usage = self._add_health(providers, self._usage(providers), company or self.env.company)
         candidates = self._candidates(providers, usage)
         upcoming = []
         for _i in range(size):

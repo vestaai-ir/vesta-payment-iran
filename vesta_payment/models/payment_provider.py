@@ -130,24 +130,46 @@ class PaymentProvider(models.Model):
         """Check the credentials, the server's IP address and the bank's availability."""
         self.ensure_one()
         self._vesta_ensure_installed()
+        success, message = self._vesta_run_check()
+        mode = self.env._("live") if self.is_live else self.env._("test")
+        title = self.env._("%(bank)s (%(mode)s): connection OK", bank=self.name, mode=mode)
+        if not success:
+            title = self.env._("%(bank)s (%(mode)s): connection failed", bank=self.name, mode=mode)
+        return self._vesta_notify(message, title=title, kind="success" if success else "danger")
+
+    def _vesta_run_check(self):
+        """Test the connection, store the result and log a failure.
+
+        :return: Whether the bank answered, and the message.
+        :rtype: tuple(bool, str)
+        """
+        self.ensure_one()
         try:
             message = self._vesta_test_connection()
             success = True
         except (UserError, ValidationError) as error:
             message = str(error.args[0] if error.args else error)
             success = False
-        self.write(
+        self.sudo().write(
             {
                 "vesta_check_date": fields.Datetime.now(),
                 "vesta_check_ok": success,
                 "vesta_check_message": message[:250],
             }
         )
-        mode = self.env._("live") if self.is_live else self.env._("test")
-        title = self.env._("%(bank)s (%(mode)s): connection OK", bank=self.name, mode=mode)
         if not success:
-            title = self.env._("%(bank)s (%(mode)s): connection failed", bank=self.name, mode=mode)
-        return self._vesta_notify(message, title=title, kind="success" if success else "danger")
+            self.env["vesta.payment.event"]._log("connection_test", message, provider=self, level="warning")
+        return success, message
+
+    def _vesta_probe(self):
+        """Uptime probe: a failed check counts as a failure of the bank, a success resets it."""
+        self.ensure_one()
+        success, _message = self._vesta_run_check()
+        if success:
+            self._vesta_register_success()
+        else:
+            self._vesta_register_failure()
+        return success
 
     def _vesta_ensure_installed(self):
         for provider in self:
@@ -197,6 +219,17 @@ class PaymentProvider(models.Model):
             values["vesta_paused_until"] = fields.Datetime.now() + timedelta(minutes=const.HEALTH_PAUSE_MINUTES)
             _logger.warning("Pausing %s in routing after %s failures in a row.", self.name, streak)
         self.sudo().write(values)
+        if streak == const.HEALTH_FAILURE_THRESHOLD:
+            self.env["vesta.payment.event"]._log(
+                "bank_paused",
+                self.env._(
+                    "%(bank)s failed %(count)s times in a row and is paused in routing for %(minutes)s minutes.",
+                    bank=self.name,
+                    count=streak,
+                    minutes=const.HEALTH_PAUSE_MINUTES,
+                ),
+                provider=self,
+            )
 
     def _vesta_register_success(self):
         """Reset the failure streak after the bank issued a payment token."""

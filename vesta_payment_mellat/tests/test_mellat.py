@@ -246,3 +246,24 @@ class TestMellat(VestaPaymentCommon):
             (self.mellat.vesta_routing_weight, self.mellat.vesta_routing_batch, self.mellat.vesta_daily_amount_limit),
             (70, 2, 5_000_000),
         )
+
+    def test_failure_rate_alert(self):
+        self.mellat.is_published = True
+        self.company.write({"vesta_alert_failure_rate": 50, "vesta_alert_min_payments": 4, "vesta_alert_window": 60})
+        for index in range(4):
+            tx = self._create_bank_transaction(self.mellat, reference=f"ALERT-{index}")
+            self._update_transaction(tx, state="done" if index == 0 else "error")
+        alerts = self.env["vesta.payment.event"]._check_failure_alerts()
+        self.assertEqual(alerts.provider_id, self.mellat)
+        self.assertEqual((alerts.category, alerts.level), ("failure_rate", "critical"))
+        data = self.env["vesta.payment.bank"].get_control_center()
+        self.assertGreaterEqual(data["events"]["critical"], 1)
+        self.env["vesta.payment.bank"].resolve_events()
+        self.assertTrue(alerts.resolved)
+
+    def test_refused_request_is_logged(self):
+        tx = self._create_bank_transaction(self.mellat)
+        with patch(CALL, new=bank({"bpPayRequest": "421"})):
+            tx._get_processing_values()
+        event = self.env["vesta.payment.event"].search([("provider_id", "=", self.mellat.id)], limit=1)
+        self.assertEqual((event.category, event.code), ("ip", "421"))

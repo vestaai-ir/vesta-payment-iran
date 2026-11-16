@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="vesta_payment_event_list" model="ir.ui.view">
+        <field name="name">vesta.payment.event.list</field>
+        <field name="model">vesta.payment.event</field>
+        <field name="arch" type="xml">
+            <list create="false" decoration-muted="resolved" decoration-danger="level == 'critical' and not resolved">
+                <field name="last_seen"/>
+                <field name="level" widget="badge" decoration-danger="level == 'critical'" decoration-warning="level == 'error'"/>
+                <field name="category"/>
+                <field name="provider_id"/>
+                <field name="code" optional="show"/>
+                <field name="name"/>
+                <field name="advice" optional="show"/>
+                <field name="occurrences"/>
+                <field name="resolved" widget="boolean_toggle" optional="show"/>
+                <button name="action_resolve" type="object" icon="fa-check" title="Resolve" invisible="resolved"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="vesta_payment_event_form" model="ir.ui.view">
+        <field name="name">vesta.payment.event.form</field>
+        <field name="model">vesta.payment.event</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <button name="action_resolve" type="object" string="Resolve" class="btn-primary" invisible="resolved"/>
+                    <button name="action_reopen" type="object" string="Reopen" invisible="not resolved"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Resolved" bg_color="text-bg-success" invisible="not resolved"/>
+                    <div class="oe_title"><h2><field name="name" readonly="1"/></h2></div>
+                    <group>
+                        <group>
+                            <field name="level" readonly="1"/>
+                            <field name="category" readonly="1"/>
+                            <field name="provider_id" readonly="1"/>
+                            <field name="code" readonly="1"/>
+                            <field name="transaction_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="occurrences" readonly="1"/>
+                            <field name="first_seen" readonly="1"/>
+                            <field name="last_seen" readonly="1"/>
+                            <field name="resolved_date" invisible="not resolved"/>
+                            <field name="resolved_uid" invisible="not resolved"/>
+                        </group>
+                    </group>
+                    <group string="What to Do">
+                        <field name="advice" nolabel="1" colspan="2" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="vesta_payment_event_search" model="ir.ui.view">
+        <field name="name">vesta.payment.event.search</field>
+        <field name="model">vesta.payment.event</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="provider_id"/>
+                <field name="code"/>
+                <filter string="Open" name="open" domain="[('resolved', '=', False)]"/>
+                <filter string="Critical" name="critical" domain="[('level', '=', 'critical')]"/>
+                <filter string="Attacks" name="attacks" domain="[('category', 'in', ('double_spend', 'amount_mismatch', 'suspicious'))]"/>
+                <filter string="Last 24 hours" name="last_day" domain="[('last_seen', '&gt;=', (context_today() - relativedelta(days=1)).strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter string="Bank" name="groupby_provider" context="{'group_by': 'provider_id'}"/>
+                    <filter string="Category" name="groupby_category" context="{'group_by': 'category'}"/>
+                    <filter string="Level" name="groupby_level" context="{'group_by': 'level'}"/>
+                    <filter string="Day" name="groupby_day" context="{'group_by': 'last_seen:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_vesta_payment_event" model="ir.actions.act_window">
+        <field name="name">Gateway Log</field>
+        <field name="res_model">vesta.payment.event</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_open': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No problem logged</p>
+            <p>Bank errors, failed verifications, attacks and failure-rate alerts appear here, diagnosed and grouped, with what to do.</p>
+        </field>
+    </record>
+
+</odoo>

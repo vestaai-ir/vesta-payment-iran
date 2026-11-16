@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Odoo-20.0-714B67?style=for-the-badge" alt="Odoo 20.0">
   <img src="https://img.shields.io/badge/license-LGPL--3-5b3cc4?style=for-the-badge" alt="LGPL-3">
-  <img src="https://img.shields.io/badge/tests-63%20passing-2ea44f?style=for-the-badge" alt="63 tests passing">
+  <img src="https://img.shields.io/badge/tests-69%20passing-2ea44f?style=for-the-badge" alt="69 tests passing">
   <img src="https://img.shields.io/badge/Shaparak-Mellat%20·%20Saman%20·%20Melli%20·%20Pasargad%20·%20Parsian-e8392e?style=for-the-badge" alt="Banks">
 </p>
 
@@ -48,6 +48,18 @@
 <p align="center"><img src="vesta_payment/static/description/screenshots/control_center.jpg" alt="مرکز کنترل درگاه وستا" width="100%"></p>
 <p align="center"><img src="vesta_payment/static/description/screenshots/control_center_banks.jpg" alt="تنظیم وزن، نوبت و سقف هر بانک" width="100%"></p>
 
+### 🩺 لاگ‌منیجر هوشمند و جایگزینی خودکار
+
+هر مشکل درگاه، از خطای بانک تا تلاش برای تقلب، **ثبت، دسته‌بندی و تشخیص داده می‌شود** و کنارش نوشته می‌شود چه کار کنید. پرداخت‌های موفق و ناموفق هر بانک زیر نظر است و اگر بانکی خراب شد، پرداخت‌ها **خودکار به بانک بعدی** می‌روند.
+
+- 📒 **لاگ‌منیجر هوشمند**: از روی کد بانک علت را تشخیص می‌دهد (IP ثبت‌نشده، رمز نادرست، دامنه‌ی بازگشت، ساعت سرور، قطعی بانک، مغایرت مبلغ، استفاده‌ی دوباره از رسید، بازگشت مشکوک) و راه‌حل را نشان می‌دهد. خطاهای تکراری یک ساعت با هم گروه می‌شوند (×۲، ×۳…) تا لاگ شلوغ نشود. هر مشکل با یک کلیک «رفع شد» می‌شود.
+- 🚨 **هشدار نرخ خطا**: آستانه را خودتان تعیین می‌کنید (مثلاً بالای ۴۰٪ ناموفق در ۶۰ دقیقه‌ی اخیر، با حداقل ۱۰ پرداخت). وقتی بانکی از آن گذشت، هشدار بحرانی ثبت و در بالای مرکز کنترل نشان داده می‌شود.
+- 🔀 **جایگزینی خودکار**: اگر نرخ موفقیت بانکی از حداقلی که تعیین کرده‌اید پایین‌تر رفت، یا بانک پاسخ نداد، مسیریابی از آن عبور می‌کند و بانک بعدی را پیشنهاد می‌دهد؛ در مرکز کنترل دقیقاً می‌بینید «→ بانک ملت» جای کدام بانک را گرفته است. این کار در همه‌ی حالت‌ها، حتی «انتخاب مشتری»، انجام می‌شود.
+- 📡 **پایش دسترس‌پذیری (Uptime)**: به انتخاب شما، هر ۱۰ دقیقه از هر بانک یک توکن بی‌استفاده گرفته می‌شود؛ بانکی که سه بار پیاپی پاسخ ندهد کنار گذاشته می‌شود و با اولین پاسخ برمی‌گردد.
+- 📊 **سلامت هر بانک**: تعداد موفق ✓ و ناموفق ✕، نرخ موفقیت و خط آستانه روی نوار هر بانک.
+
+<p align="center"><img src="vesta_payment/static/description/screenshots/smart_log.jpg" alt="لاگ‌منیجر هوشمند و سلامت بانک‌ها" width="100%"></p>
+
 ### این مخزن و نسخه‌ی حرفه‌ای
 
 | ماژول | بانک | سرویس | این مخزن (متن‌باز) | درگاه وستا حرفه‌ای (زیپ) |
@@ -79,6 +91,7 @@
 - 🛡️ پارسر SOAP ایمن در برابر XXE، پنهان شدن رمزها در لاگ، پاک شدن رمزها در کپی تستی پایگاه‌داده
 
 **مدیریت**
+- 📒 **لاگ درگاه**: فهرست کامل مشکلات با فیلتر «باز»، «بحرانی»، «تلاش‌های تقلب» و گروه‌بندی بر اساس بانک، دسته و روز
 - 🛰️ **مرکز کنترل**: شاخص‌های امروز / ۷ روز / ۳۰ روز (تعداد، نرخ موفقیت، مبلغ دریافتی، در انتظار بانک)، حالت مسیریابی، پیش‌نمایش جریان پرداخت، نمودار توزیع، و کنترل کامل هر بانک در یک صفحه
 - ↕️ **ترتیب بانک‌ها** با دکمه‌های بالا/پایین؛ همان ترتیب صفحه‌ی پرداخت و اولویت مسیریابی
 - 🎛️ **کارت بانک‌ها**: وضعیت (عملیاتی، آزمایشی، غیرفعال)، آمار ۳۰ روز، هشدار تنظیمات ناقص
@@ -136,7 +149,7 @@ git clone -b 20.0 https://github.com/vestaai-ir/vesta-payment-iran.git
 
 ### آزمایش‌شده
 
-- **۶۳ تست خودکار** (بدون نیاز به اینترنت): مسیریابی وزنی، چرخشی و اولویت، سقف روزانه، توقف خودکار بانک، تأیید، تسویه، برگشت، دوبار مصرف رسید، مغایرت مبلغ، توکن جعلی، امضای آدرس، تلاش دوباره، XXE، تبدیل تومان
+- **۶۹ تست خودکار** (بدون نیاز به اینترنت): لاگ‌منیجر و هشدار نرخ خطا، جایگزینی بر اساس نرخ موفقیت، مسیریابی وزنی، چرخشی و اولویت، سقف روزانه، توقف خودکار بانک، تأیید، تسویه، برگشت، دوبار مصرف رسید، مغایرت مبلغ، توکن جعلی، امضای آدرس، تلاش دوباره، XXE، تبدیل تومان
   ```bash
   odoo -d test_db -i vesta_payment_mellat --test-tags=/vesta_payment,/vesta_payment_mellat --stop-after-init
   ```
@@ -145,6 +158,10 @@ git clone -b 20.0 https://github.com/vestaai-ir/vesta-payment-iran.git
 ### سازگاری
 
 اودو ۲۰ (Community و Enterprise)، پایتون ۳.۱۲ به بالا. بدون وابستگی خارجی: `requests`، `lxml` و `cryptography` همراه اودو نصب می‌شوند.
+
+### سازنده
+
+<p align="center"><img src="vesta_payment/static/description/banner_profile.png" alt="هوش مصنوعی وستا" width="80%"></p>
 
 ### مجوز
 
@@ -172,6 +189,8 @@ This repository holds the core app (`vesta_payment`) and **Bank Mellat** (`vesta
 ### Highlights
 
 - **Smart routing between banks**: customer choice, weighted distribution (the bank furthest below its share takes the next payment, so shares match the weights at any time of day), rotation in batches, or priority with failover; daily count and amount caps per terminal; automatic pause of a failing bank; a preview of the next 24 routing decisions
+- **Smart log manager**: every gateway problem is diagnosed from the bank's code (server IP, credentials, domain, clock, outage, amount mismatch, receipt reuse, suspicious return), grouped, and shown with the fix; failure-rate alerts with your own threshold
+- **Automatic failover**: banks below your minimum success rate, or that stop answering uptime probes, are skipped and the next bank takes over
 - **Control center**: today / 7 / 30-day KPIs, routing mode, distribution donut and hourly/daily chart, and per-bank weight, batch, caps, order, live/test/off and connection test on one page
 
 - Server-to-server verification of every payment; the browser's return form is never trusted alone
@@ -183,7 +202,7 @@ This repository holds the core app (`vesta_payment`) and **Bank Mellat** (`vesta
 - Rial (IRR) and Toman (IRT); bank-time (Asia/Tehran) handling; TripleDES signing for Sadad; JWT caching for Pasargad
 - XXE-safe SOAP, credentials masked in logs, restricted to Settings users, wiped on database neutralization
 - Dashboard with live/test/disabled toggles, connection test, 30-day statistics; full Persian translation
-- 63 automated tests and end-to-end runs of every bank on the sandbox
+- 69 automated tests and end-to-end runs of every bank on the sandbox
 
 ### Documentation
 

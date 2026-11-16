@@ -24,7 +24,11 @@ const MODE_INFO = {
     },
 };
 
+// One accent hue in five shades: charts stay readable without a rainbow of bank colors.
+const PALETTE = ["#3b2a8f", "#5b3cc4", "#8b74e0", "#b3a5ee", "#d9d2f7"];
+
 const BLOCKED_LABELS = {
+    low_success: _t("Success rate below the minimum"),
     paused: _t("Paused after failures"),
     count_limit: _t("Daily payments limit reached"),
     amount_limit: _t("Daily amount limit reached"),
@@ -49,7 +53,12 @@ export class VestaControlCenter extends Component {
     }
 
     async load() {
-        this.state.data = await this.orm.call("vesta.payment.bank", "get_control_center", [this.state.period]);
+        const data = await this.orm.call("vesta.payment.bank", "get_control_center", [this.state.period]);
+        let index = 0;
+        for (const bank of data.banks) {
+            bank.shade = bank.provider_id ? PALETTE[index++ % PALETTE.length] : "#cbd5e1";
+        }
+        this.state.data = data;
     }
 
     // ------------------------------------------------------------------
@@ -95,8 +104,22 @@ export class VestaControlCenter extends Component {
         if (!slices.length) {
             return "background: var(--vesta-cc-track);";
         }
-        const stops = slices.map((s) => `${s.color} ${s.start}% ${s.end}%`).join(", ");
+        const stops = slices.map((s) => `${s.shade} ${s.start}% ${s.end}%`).join(", ");
         return `background: conic-gradient(${stops});`;
+    }
+
+    get nextBank() {
+        const step = this.data.preview[0];
+        return step ? this.bankByCode(step.code) : null;
+    }
+
+    get modeLabel() {
+        return this.data.modes.find((mode) => mode.key === this.data.mode)?.label || "";
+    }
+
+    percentOf(value) {
+        const total = this.distribution.total;
+        return total ? `${Math.round((100 * value) / total)}%` : "";
     }
 
     get timelineMax() {
@@ -141,6 +164,32 @@ export class VestaControlCenter extends Component {
         }[bank.state];
     }
 
+    healthStyle(bank) {
+        return `width: ${bank.window_rate ?? 0}%;`;
+    }
+
+    thresholdStyle() {
+        const minimum = this.data.monitoring.min_success || (100 - this.data.monitoring.alert_rate);
+        return `inset-inline-start: ${Math.min(Math.max(minimum, 0), 100)}%;`;
+    }
+
+    isUnhealthy(bank) {
+        const minimum = this.data.monitoring.min_success;
+        return bank.window_rate !== null && minimum && bank.window_rate < minimum;
+    }
+
+    timeAgo(value) {
+        const minutes = Math.max(0, Math.round((Date.now() - new Date(value.replace(" ", "T") + "Z")) / 60000));
+        if (minutes < 1) {
+            return _t("just now");
+        }
+        if (minutes < 60) {
+            return _t("%s min ago", minutes);
+        }
+        const hours = Math.round(minutes / 60);
+        return hours < 24 ? _t("%s h ago", hours) : _t("%s d ago", Math.round(hours / 24));
+    }
+
     blockedLabel(bank) {
         return BLOCKED_LABELS[bank.blocked] || "";
     }
@@ -174,6 +223,23 @@ export class VestaControlCenter extends Component {
     toggleShowAll(ev) {
         const showAll = ev.target.checked;
         return this.run(() => this.orm.call("vesta.payment.bank", "set_routing", [this.data.mode, showAll]));
+    }
+
+    updateMonitoring(key, ev) {
+        const value = ev.target.type === "checkbox" ? ev.target.checked : parseInt(ev.target.value || "0", 10) || 0;
+        return this.run(() => this.orm.call("vesta.payment.bank", "set_monitoring", [{ [key]: value }]));
+    }
+
+    resolveEvent(event) {
+        return this.run(() => this.orm.call("vesta.payment.bank", "resolve_events", [[event.id]]));
+    }
+
+    resolveAll() {
+        return this.run(() => this.orm.call("vesta.payment.bank", "resolve_events", []));
+    }
+
+    openLog() {
+        this.action.doAction("vesta_payment.action_vesta_payment_event");
     }
 
     updateBank(bank, key, ev) {

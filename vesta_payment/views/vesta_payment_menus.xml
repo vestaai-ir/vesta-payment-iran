@@ -38,6 +38,12 @@
               action="action_vesta_payment_transaction"
               sequence="20"/>
 
+    <menuitem id="menu_vesta_payment_events"
+              name="Gateway Log"
+              parent="menu_vesta_payment_root"
+              action="action_vesta_payment_event"
+              sequence="30"/>
+
     <menuitem id="menu_vesta_payment_config"
               name="Configuration"
               parent="menu_vesta_payment_root"

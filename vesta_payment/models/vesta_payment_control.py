@@ -1,6 +1,8 @@
 # Copyright 2026 Vesta AI (https://vestaai.ir)
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
+from datetime import timedelta
+
 from odoo import api, fields, models
 from odoo.addons.vesta_payment import const
 from odoo.exceptions import AccessError, UserError
@@ -34,7 +36,9 @@ class VestaPaymentBank(models.Model):
         days = PERIOD_DAYS.get(period, 0)
         banks = self._control_center_banks()
         providers = banks.provider_id
-        today = Router._usage(providers)
+        today = Router._add_health(providers, Router._usage(providers), company)
+        window_start = fields.Datetime.now() - timedelta(minutes=company.vesta_alert_window or 60)
+        window = self.env["vesta.payment.event"]._failure_stats(providers, window_start)
         stats = Router._usage(providers, Router._day_start(days)) if days else today
         pending = dict(
             self.env["payment.transaction"]
@@ -50,7 +54,7 @@ class VestaPaymentBank(models.Model):
         mode = company.vesta_routing_mode
         targets = self._target_shares(candidates, mode)
         total_today = sum(today[p.id]["attempts"] for p in published) or 0
-        upcoming = Router._preview(published, mode)
+        upcoming = Router._preview(published, mode, company=company)
         next_provider = upcoming[0] if upcoming else providers.browse()
 
         bank_rows = []
@@ -96,6 +100,12 @@ class VestaPaymentBank(models.Model):
                     "check_ok": bank.check_ok,
                     "check_message": bank.check_message or "",
                     "is_next": bool(provider) and provider == next_provider,
+                    "window_done": window.get(provider.id, [0, 0])[0],
+                    "window_failed": window.get(provider.id, [0, 0])[1],
+                    "window_rate": self._rate(window.get(provider.id, [0, 0])),
+                    "fallback": self._fallback_name(provider, candidates)
+                    if provider and provider not in candidates
+                    else "",
                 }
             )
 
@@ -118,6 +128,14 @@ class VestaPaymentBank(models.Model):
             "preview": [{"code": p.code, "provider_id": p.id} for p in upcoming],
             "timeline": self._control_center_timeline(providers, days),
             "can_edit": self.env.user.has_group("base.group_system"),
+            "monitoring": {
+                "alert_rate": company.vesta_alert_failure_rate,
+                "window": company.vesta_alert_window,
+                "min_payments": company.vesta_alert_min_payments,
+                "min_success": company.vesta_route_min_success,
+                "uptime": company.vesta_uptime_check,
+            },
+            "events": self._control_center_events(),
         }
 
     @api.model
@@ -135,6 +153,48 @@ class VestaPaymentBank(models.Model):
                 sizes = dict.fromkeys(sizes, 1)
         total = sum(sizes.values())
         return {provider_id: round(100 * size / total) for provider_id, size in sizes.items()}
+
+    @staticmethod
+    def _rate(done_failed):
+        done, failed = done_failed
+        return round(100 * done / (done + failed)) if done + failed else None
+
+    def _fallback_name(self, provider, candidates):
+        """Return the bank that takes the payments of a skipped bank."""
+        following = candidates.filtered(lambda p: (p.sequence, p.id) > (provider.sequence, provider.id))
+        return (following or candidates)[:1].name or ""
+
+    @api.model
+    def _control_center_events(self, limit=12):
+        Event = self.env["vesta.payment.event"]
+        domain = Domain("company_id", "in", self.env.companies.ids)
+        open_domain = domain & Domain("resolved", "=", False)
+        counts = dict(Event._read_group(open_domain, groupby=["level"], aggregates=["__count"]))
+        level_labels = dict(Event._fields["level"]._description_selection(self.env))
+        category_labels = dict(Event._fields["category"]._description_selection(self.env))
+        rows = []
+        for event in Event.search(open_domain, limit=limit):
+            rows.append(
+                {
+                    "id": event.id,
+                    "name": event.name,
+                    "level": event.level,
+                    "level_label": level_labels[event.level],
+                    "category": category_labels.get(event.category, event.category),
+                    "code": event.code or "",
+                    "advice": event.advice or "",
+                    "bank": event.provider_id.name or "",
+                    "bank_id": event.provider_id.id,
+                    "occurrences": event.occurrences,
+                    "last_seen": fields.Datetime.to_string(event.last_seen),
+                }
+            )
+        return {
+            "rows": rows,
+            "critical": counts.get("critical", 0),
+            "error": counts.get("error", 0),
+            "warning": counts.get("warning", 0),
+        }
 
     def _control_center_banks(self):
         """Return the banks of the catalog in the order customers see them."""
@@ -174,6 +234,40 @@ class VestaPaymentBank(models.Model):
     def _check_manager(self):
         if not self.env.user.has_group("base.group_system"):
             raise AccessError(self.env._("Only administrators can change the bank gateways."))
+
+    @api.model
+    def set_monitoring(self, values):
+        """Change the alert thresholds and the automatic failover of the current company."""
+        self._check_manager()
+        fields_map = {
+            "alert_rate": "vesta_alert_failure_rate",
+            "window": "vesta_alert_window",
+            "min_payments": "vesta_alert_min_payments",
+            "min_success": "vesta_route_min_success",
+        }
+        updates = {
+            fields_map[key]: min(max(int(value or 0), 0), 100000) for key, value in values.items() if key in fields_map
+        }
+        for key in ("alert_rate", "min_success"):
+            if fields_map[key] in updates:
+                updates[fields_map[key]] = min(updates[fields_map[key]], 100)
+        if "uptime" in values:
+            updates["vesta_uptime_check"] = bool(values["uptime"])
+        self.env.company.write(updates)
+        return True
+
+    @api.model
+    def resolve_events(self, event_ids=None):
+        """Mark problems as resolved; all open problems of the company when no id is given."""
+        self._check_manager()
+        Event = self.env["vesta.payment.event"]
+        events = (
+            Event.browse(event_ids)
+            if event_ids
+            else Event.search(Domain("company_id", "in", self.env.companies.ids) & Domain("resolved", "=", False))
+        )
+        events.action_resolve()
+        return True
 
     @api.model
     def set_routing(self, mode, show_all=False):

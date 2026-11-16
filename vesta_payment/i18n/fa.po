@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0+e-20261109\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-16 00:50+0000\n"
-"PO-Revision-Date: 2026-11-16 00:50+0000\n"
+"POT-Creation-Date: 2026-11-16 01:12+0000\n"
+"PO-Revision-Date: 2026-11-16 01:12+0000\n"
 "Last-Translator: Vesta AI\n"
 "Language-Team: Vesta AI\n"
 "Language: fa\n"
@@ -42,6 +42,38 @@ msgstr "%(bank)s (%(mode)s): اتصال ناموفق بود"
 
 #. module: vesta_payment
 #. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid ""
+"%(bank)s failed %(count)s times in a row and is paused in routing for "
+"%(minutes)s minutes."
+msgstr ""
+"%(bank)s %(count)s بار پیاپی خطا داد و %(minutes)s دقیقه در مسیریابی متوقف "
+"شد."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/vesta_payment_event.py:0
+msgid ""
+"%(bank)s: %(rate)s%% of the last %(total)s payments failed (threshold "
+"%(limit)s%%)."
+msgstr ""
+"%(bank)s: %(rate)s%% از %(total)s پرداخت اخیر ناموفق بود (آستانه "
+"%(limit)s%%)."
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "%s d ago"
+msgstr "%s روز پیش"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "%s h ago"
+msgstr "%s ساعت پیش"
+
+#. module: vesta_payment
+#. odoo-python
 #: code:addons/vesta_payment/models/vesta_payment_control.py:0
 msgid "%s is back in the routing."
 msgstr "%s دوباره در مسیریابی است."
@@ -69,6 +101,12 @@ msgstr "%s از درگاه‌های بانکی درگاه وستا نیست."
 #: code:addons/vesta_payment/models/payment_provider.py:0
 msgid "%s is now live."
 msgstr "%s اکنون عملیاتی است."
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "%s min ago"
+msgstr "%s دقیقه پیش"
 
 #. module: vesta_payment
 #. odoo-javascript
@@ -104,6 +142,18 @@ msgstr "<i class=\"fa fa-plug\"/> آزمایش اتصال"
 
 #. module: vesta_payment
 #. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "A return that didn't match payment %s was ignored."
+msgstr "بازگشتی که با پرداخت %s جور نبود نادیده گرفته شد."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "A return with an invalid signature was rejected (order %s)."
+msgstr "بازگشتی با امضای نامعتبر رد شد (سفارش %s)."
+
+#. module: vesta_payment
+#. odoo-python
 #: code:addons/vesta_payment/models/payment_provider.py:0
 msgid "A rotation batch takes at least one payment."
 msgstr "هر نوبت چرخش دست‌کم یک پرداخت است."
@@ -114,10 +164,41 @@ msgid "API"
 msgstr "سرویس"
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_alert_failure_rate
+msgid "Alert Above Failure Rate (%)"
+msgstr "هشدار بالای نرخ خطا (٪)"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_alert_min_payments
+msgid "Alert Minimum Payments"
+msgstr "حداقل پرداخت برای هشدار"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_alert_window
+msgid "Alert Window (minutes)"
+msgstr "بازه‌ی سنجش (دقیقه)"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Alert above failure rate (%)"
+msgstr "هشدار وقتی نرخ ناموفق بیشتر از (٪)"
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "All payments"
 msgstr "همه‌ی پرداخت‌ها"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__amount_mismatch
+msgid "Amount mismatch"
+msgstr "مغایرت مبلغ"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Attacks"
+msgstr "تلاش‌های تقلب"
 
 #. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form_routing
@@ -144,7 +225,9 @@ msgstr "در انتظار بانک"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__name
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__provider_id
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_form
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
 msgid "Bank"
 msgstr "بانک"
 
@@ -153,6 +236,16 @@ msgstr "بانک"
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_form
 msgid "Bank Callback"
 msgstr "داده‌های بازگشتی بانک"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__code
+msgid "Bank Code"
+msgstr "کد بانک"
+
+#. module: vesta_payment
+#: model:ir.model,name:vesta_payment.model_vesta_payment_event
+msgid "Bank Gateway Log"
+msgstr "لاگ درگاه بانکی"
 
 #. module: vesta_payment
 #: model:vesta.payment.bank,name:vesta_payment.bank_mellat
@@ -218,6 +311,25 @@ msgid "Bank Verification"
 msgstr "تأیید بانک"
 
 #. module: vesta_payment
+#: model_terms:ir.actions.act_window,help:vesta_payment.action_vesta_payment_event
+msgid ""
+"Bank errors, failed verifications, attacks and failure-rate alerts appear "
+"here, diagnosed and grouped, with what to do."
+msgstr ""
+"خطاهای بانک، تأییدهای ناموفق، تلاش‌های تقلب و هشدارهای نرخ خطا اینجا، "
+"دسته‌بندی‌شده و با راه‌حل، نمایش داده می‌شوند."
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__outage
+msgid "Bank outage"
+msgstr "قطعی بانک"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__bank_paused
+msgid "Bank paused"
+msgstr "توقف بانک"
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_banks
@@ -257,6 +369,12 @@ msgid "Card Number"
 msgstr "شماره کارت"
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__category
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Category"
+msgstr "دسته"
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__check_date
 msgid "Check Date"
 msgstr "تاریخ آزمایش"
@@ -289,6 +407,7 @@ msgstr "مبلغ دریافتی در ۳۰ روز گذشته، به ریال"
 
 #. module: vesta_payment
 #: model:ir.model,name:vesta_payment.model_res_company
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__company_id
 msgid "Company"
 msgstr "شرکت"
 
@@ -309,6 +428,16 @@ msgid "Confirmed among finished payments"
 msgstr "تأییدشده از پرداخت‌های پایان‌یافته"
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__connection
+msgid "Connection"
+msgstr "ارتباط"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__connection_test
+msgid "Connection test"
+msgstr "آزمایش اتصال"
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_failure_streak
 msgid "Consecutive Failures"
 msgstr "خطاهای پیاپی"
@@ -327,19 +456,34 @@ msgstr "مرکز کنترل"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__create_uid
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__create_uid
 msgid "Created by"
 msgstr "ایجادکننده"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__create_date
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__create_date
 msgid "Created on"
 msgstr "تاریخ ایجاد"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__credentials
+msgid "Credentials"
+msgstr "اطلاعات اتصال"
 
 #. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Credentials missing"
 msgstr "اطلاعات اتصال ناقص"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__level__critical
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Critical"
+msgstr "بحرانی"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__currency_id
@@ -407,6 +551,7 @@ msgstr "سقف تعداد روزانه پر شد"
 
 #. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_search
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
 msgid "Day"
 msgstr "روز"
 
@@ -440,6 +585,7 @@ msgstr "غیرفعال"
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__display_name
 #: model:ir.model.fields,field_description:vesta_payment.field_res_company__display_name
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__display_name
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__display_name
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_router__display_name
 msgid "Display Name"
 msgstr "نام نمایشی"
@@ -477,6 +623,35 @@ msgid "Edition"
 msgstr "نسخه"
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__level__error
+msgid "Error"
+msgstr "خطا"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Errors"
+msgstr "خطاها"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Errors of the banks, attacks and alerts appear here with what to do."
+msgstr ""
+"خطاهای بانک‌ها، تلاش‌های تقلب و هشدارها با راه‌حل اینجا نمایش داده می‌شوند."
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_uptime_check
+msgid ""
+"Every 10 minutes, ask each published bank for a payment token that is never "
+"used. A bank that doesn't answer three times in a row is paused in routing "
+"until it answers again."
+msgstr ""
+"هر ۱۰ دقیقه از هر بانک فعال یک توکن پرداخت (بدون استفاده) درخواست می‌شود. "
+"بانکی که سه بار پیاپی پاسخ ندهد تا زمان پاسخ دوباره در مسیریابی متوقف "
+"می‌شود."
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.js:0
 msgid "Every live bank is listed and the customer picks one."
@@ -499,6 +674,28 @@ msgid "Failed or canceled in the last 30 days"
 msgstr "ناموفق یا لغوشده در ۳۰ روز گذشته"
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__failure_rate
+msgid "Failure rate alert"
+msgstr "هشدار نرخ خطا"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__first_seen
+msgid "First Seen"
+msgstr "اولین بار"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Full log"
+msgstr "لاگ کامل"
+
+#. module: vesta_payment
+#: model:ir.actions.act_window,name:vesta_payment.action_vesta_payment_event
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_events
+msgid "Gateway Log"
+msgstr "لاگ درگاه"
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__missing
@@ -517,11 +714,18 @@ msgid "Go Live"
 msgstr "فعال‌سازی عملیاتی"
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Health and failover"
+msgstr "سلامت و جایگزینی خودکار"
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_method__id
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__id
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__id
 #: model:ir.model.fields,field_description:vesta_payment.field_res_company__id
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__id
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__id
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_router__id
 msgid "ID"
 msgstr "شناسه"
@@ -576,9 +780,24 @@ msgid "Is Configured"
 msgstr "پیکربندی‌شده"
 
 #. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Last 24 hours"
+msgstr "۲۴ ساعت گذشته"
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_check_date
 msgid "Last Connection Test"
 msgstr "آخرین آزمایش اتصال"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__transaction_id
+msgid "Last Payment"
+msgstr "آخرین پرداخت"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__last_seen
+msgid "Last Seen"
+msgstr "آخرین بار"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_check_message
@@ -592,13 +811,21 @@ msgstr "آخرین آزمایش موفق بود"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__write_uid
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__write_uid
 msgid "Last Updated by"
 msgstr "آخرین ویرایش‌کننده"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__write_date
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__write_date
 msgid "Last Updated on"
 msgstr "آخرین ویرایش"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__level
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Level"
+msgstr "سطح"
 
 #. module: vesta_payment
 #. odoo-javascript
@@ -619,6 +846,15 @@ msgstr ""
 "                        فقط به درخواست‌های IP ثبت‌شده روی ترمینال شما پاسخ می‌دهد."
 
 #. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_alert_failure_rate
+msgid ""
+"Log a critical alert when this share of a bank's payments failed in the "
+"alert window. 0 disables alerts."
+msgstr ""
+"وقتی این درصد از پرداخت‌های یک بانک در بازه‌ی سنجش ناموفق شود، هشدار بحرانی "
+"ثبت می‌شود. ۰ یعنی خاموش."
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__image_128
 msgid "Logo"
 msgstr "لوگو"
@@ -628,6 +864,17 @@ msgstr "لوگو"
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Max / day"
 msgstr "سقف تعداد / روز"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_route_min_success
+msgid "Minimum Success Rate (%)"
+msgstr "حداقل نرخ موفقیت (٪)"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Minimum payments to judge"
+msgstr "حداقل پرداخت برای سنجش"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__module_id
@@ -666,6 +913,12 @@ msgstr "بعدی"
 #. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Next payment goes to"
+msgstr "پرداخت بعدی به"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Next payments"
 msgstr "پرداخت‌های بعدی"
 
@@ -682,8 +935,19 @@ msgstr "هنوز پرداخت بانکی‌ای انجام نشده"
 #. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "No open problem"
+msgstr "مشکل بازی وجود ندارد"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "No payment in this period yet."
 msgstr "هنوز پرداختی در این بازه نیست."
+
+#. module: vesta_payment
+#: model_terms:ir.actions.act_window,help:vesta_payment.action_vesta_payment_event
+msgid "No problem logged"
+msgstr "مشکلی ثبت نشده"
 
 #. module: vesta_payment
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__missing
@@ -721,6 +985,11 @@ msgstr ""
 "ترمینال هم یکتاست."
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__occurrences
+msgid "Occurrences"
+msgstr "تکرار"
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Off"
@@ -742,6 +1011,11 @@ msgstr "بانک‌های دیگر هم نمایش داده شوند"
 #: code:addons/vesta_payment/models/vesta_payment_control.py:0
 msgid "Only administrators can change the bank gateways."
 msgstr "فقط مدیران می‌توانند درگاه‌های بانکی را تغییر دهند."
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Open"
+msgstr "باز"
 
 #. module: vesta_payment
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__edition__community
@@ -805,6 +1079,11 @@ msgid "Payment Transaction"
 msgstr "تراکنش پرداخت"
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__payment_request
+msgid "Payment request"
+msgstr "درخواست پرداخت"
+
+#. module: vesta_payment
 #: model:vesta.payment.bank,description:vesta_payment.bank_sadad
 msgid ""
 "Payment requests and verifications signed with the terminal's TripleDES key."
@@ -833,6 +1112,11 @@ msgstr ""
 "مرجع و شماره کارت پوشیده اینجا نمایش داده می‌شوند."
 
 #. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_alert_window
+msgid "Period over which failure and success rates are measured."
+msgstr "بازه‌ای که نرخ موفقیت و خطا در آن سنجیده می‌شود."
+
+#. module: vesta_payment
 #: model:ir.model.fields.selection,name:vesta_payment.selection__res_company__vesta_routing_mode__priority
 msgid "Priority with failover"
 msgstr "اولویت با جایگزین"
@@ -844,6 +1128,11 @@ msgstr "اولویت با جایگزین"
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Pro"
 msgstr "حرفه‌ای"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__name
+msgid "Problem"
+msgstr "مشکل"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__code
@@ -862,10 +1151,58 @@ msgid "RRN"
 msgstr "شماره مرجع (RRN)"
 
 #. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_alert_min_payments
+msgid ""
+"Rates are only judged once a bank handled this many payments in the window."
+msgstr ""
+"نرخ‌ها فقط وقتی سنجیده می‌شوند که بانک در بازه دست‌کم این تعداد پرداخت داشته"
+" باشد."
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__double_spend
+msgid "Receipt reuse"
+msgstr "استفاده‌ی دوباره از رسید"
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Refresh"
 msgstr "به‌روزرسانی"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_form
+msgid "Reopen"
+msgstr "بازگشایی"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_form
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_list
+msgid "Resolve"
+msgstr "رفع شد"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Resolve all"
+msgstr "همه رفع شد"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__resolved
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_form
+msgid "Resolved"
+msgstr "رفع‌شده"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__resolved_uid
+msgid "Resolved By"
+msgstr "رفع توسط"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__resolved_date
+msgid "Resolved On"
+msgstr "تاریخ رفع"
 
 #. module: vesta_payment
 #. odoo-javascript
@@ -883,6 +1220,11 @@ msgstr "هر ۵ دقیقه دوباره تلاش می‌شود"
 #: model:ir.model.fields,help:vesta_payment.field_payment_transaction__vesta_rrn
 msgid "Retrieval reference number."
 msgstr "شماره مرجع بازیابی تراکنش."
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__domain
+msgid "Return domain"
+msgstr "دامنه‌ی بازگشت"
 
 #. module: vesta_payment
 #. odoo-python
@@ -939,6 +1281,16 @@ msgstr "نوبت چرخش"
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_routing_weight
 msgid "Routing Weight"
 msgstr "وزن مسیریابی"
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_route_min_success
+msgid ""
+"Routing skips a bank whose success rate over the alert window falls below "
+"this percentage, and sends the payments to the next bank. 0 disables the "
+"check."
+msgstr ""
+"اگر نرخ موفقیت بانکی در بازه‌ی سنجش از این درصد کمتر شود، مسیریابی از آن "
+"عبور می‌کند و پرداخت‌ها را به بانک بعدی می‌فرستد. ۰ یعنی خاموش."
 
 #. module: vesta_payment
 #. odoo-python
@@ -1020,6 +1372,16 @@ msgid "Sequence"
 msgstr "ترتیب"
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__ip
+msgid "Server IP"
+msgstr "IP سرور"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__clock
+msgid "Server clock"
+msgstr "ساعت سرور"
+
+#. module: vesta_payment
 #: model:ir.model.fields,help:vesta_payment.field_payment_provider__vesta_sandbox_url
 msgid ""
 "Server used while the provider is in test mode. Requests to the bank's "
@@ -1043,6 +1405,18 @@ msgid ""
 msgstr ""
 "سهم این بانک از پرداخت‌ها در توزیع وزنی نسبت به بانک‌های دیگر: با وزن‌های "
 "۶۰، ۳۰ و ۱۰، بانک‌ها ۶۰٪، ۳۰٪ و ۱۰٪ پرداخت‌ها را می‌گیرند."
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Skip bank below success rate (%)"
+msgstr "رد شدن از بانک زیر نرخ موفقیت (٪)"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Smart log"
+msgstr "لاگ‌منیجر هوشمند"
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__state
@@ -1074,9 +1448,26 @@ msgid "Success rate"
 msgstr "نرخ موفقیت"
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "Success rate below the minimum"
+msgstr "نرخ موفقیت کمتر از حداقل"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Successful and failed payments in the last"
+msgstr "پرداخت‌های موفق و ناموفق در"
+
+#. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Successful payments in the last 30 days"
 msgstr "پرداخت‌های موفق ۳۰ روز گذشته"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__suspicious
+msgid "Suspicious return"
+msgstr "بازگشت مشکوک"
 
 #. module: vesta_payment
 #. odoo-javascript
@@ -1370,6 +1761,22 @@ msgid "Unsupported search on Iranian bank gateways."
 msgstr "این جست‌وجو روی درگاه‌های بانکی ایران پشتیبانی نمی‌شود."
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_uptime_check
+msgid "Uptime Probes"
+msgstr "پایش دسترس‌پذیری"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Uptime probes every 10 minutes; a bank that stops answering is skipped"
+msgstr "پایش دسترس‌پذیری هر ۱۰ دقیقه؛ بانکی که پاسخ ندهد کنار گذاشته می‌شود"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__verification
+msgid "Verification"
+msgstr "تأیید"
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_retry_count
 msgid "Verification Retries"
 msgstr "تلاش‌های تأیید"
@@ -1422,6 +1829,17 @@ msgid "Waiting for the bank's confirmation"
 msgstr "در انتظار تأیید بانک"
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__level__warning
+msgid "Warning"
+msgstr "هشدار"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Warnings"
+msgstr "هشدارها"
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Weight"
@@ -1431,6 +1849,18 @@ msgstr "وزن"
 #: model:ir.model.fields.selection,name:vesta_payment.selection__res_company__vesta_routing_mode__weighted
 msgid "Weighted distribution"
 msgstr "توزیع وزنی"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__advice
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_form
+msgid "What to Do"
+msgstr "راه‌حل"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Window (minutes)"
+msgstr "بازه (دقیقه)"
 
 #. module: vesta_payment
 #: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_routing_show_all
@@ -1459,6 +1889,12 @@ msgstr "تأییدشده ·"
 #. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "critical alerts"
+msgstr "هشدار بحرانی"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "failed"
 msgstr "ناموفق"
@@ -1475,6 +1911,12 @@ msgid "in test mode"
 msgstr "آزمایشی"
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "just now"
+msgstr "همین حالا"
+
+#. module: vesta_payment
 #. odoo-python
 #: code:addons/vesta_payment/models/payment_provider.py:0
 msgid "live"
@@ -1485,6 +1927,12 @@ msgstr "عملیاتی"
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "live,"
 msgstr "عملیاتی،"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "minutes."
+msgstr "دقیقه‌ی اخیر."
 
 #. module: vesta_payment
 #. odoo-javascript

@@ -122,3 +122,49 @@ class TestVestaRouting(PaymentCommon):
         self.assertEqual(self.Router._usage(self.banks)[self.bank_b.id]["attempts"], 0)
         week = self.Router._usage(self.banks, self.Router._day_start(6))[self.bank_b.id]
         self.assertEqual((week["attempts"], week["done"]), (1, 1))
+
+    def _payments(self, bank, done=0, failed=0):
+        for index in range(done + failed):
+            tx = self._create_transaction("redirect", provider_id=bank.id, reference=f"{bank.name}-{index}")
+            self._update_transaction(tx, state="done" if index < done else "error")
+
+    def test_low_success_rate_fails_over(self):
+        """A bank below the minimum success rate is skipped; the next bank takes its payments."""
+        self.company.write({"vesta_route_min_success": 60, "vesta_alert_min_payments": 4, "vesta_alert_window": 60})
+        self._payments(self.bank_a, done=1, failed=3)
+        self._payments(self.bank_b, done=4)
+        usage = self.Router._add_health(self.banks, self.Router._usage(self.banks), self.company)
+        self.assertEqual(self.Router._blocked_reason(self.bank_a, usage[self.bank_a.id]), "low_success")
+        self.assertEqual(self.Router._pick(self.Router._candidates(self.banks, usage), usage, "priority"), self.bank_b)
+
+    def test_too_few_payments_are_not_judged(self):
+        self.company.write({"vesta_route_min_success": 60, "vesta_alert_min_payments": 10})
+        self._payments(self.bank_a, failed=3)
+        usage = self.Router._add_health(self.banks, self.Router._usage(self.banks), self.company)
+        self.assertFalse(self.Router._blocked_reason(self.bank_a, usage[self.bank_a.id]))
+
+
+@tagged("post_install", "-at_install")
+class TestVestaLog(PaymentCommon):
+    def test_log_diagnoses_and_groups(self):
+        Event = self.env["vesta.payment.event"]
+        first = Event._log(
+            "payment_request", "Bank refused the payment: Invalid server IP (421)", provider=self.provider
+        )
+        second = Event._log(
+            "payment_request", "Bank refused the payment: Invalid server IP (421)", provider=self.provider
+        )
+        self.assertEqual(first, second, "The same open problem is grouped")
+        self.assertEqual(first.occurrences, 2)
+        self.assertEqual((first.category, first.code), ("ip", "421"))
+        self.assertIn("IP", first.advice)
+        first.action_resolve()
+        third = Event._log(
+            "payment_request", "Bank refused the payment: Invalid server IP (421)", provider=self.provider
+        )
+        self.assertNotEqual(third, first, "A resolved problem that comes back is a new entry")
+
+    def test_unknown_code_keeps_category_advice(self):
+        event = self.env["vesta.payment.event"]._log("double_spend", "Receipt reused", level="critical")
+        self.assertEqual(event.category, "double_spend")
+        self.assertTrue(event.advice)

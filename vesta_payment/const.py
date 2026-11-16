@@ -69,5 +69,7 @@ ROUTING_MODES = [
 # that routing sends customers to the other banks.
 HEALTH_FAILURE_THRESHOLD = 3
 HEALTH_PAUSE_MINUTES = 10
+# Minutes between two uptime probes of a bank, when the company enables them.
+UPTIME_PROBE_MINUTES = 10
 # Number of upcoming routing decisions shown in the control center.
 ROUTING_PREVIEW_SIZE = 24

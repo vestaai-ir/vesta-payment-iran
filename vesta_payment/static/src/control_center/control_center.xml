@@ -16,6 +16,17 @@
                             <t t-out="this.data.kpis.test_banks"/> in test mode
                         </p>
                     </div>
+                    <button t-if="this.data.events.critical" type="button" class="btn o_vesta_cc_alert_pill" t-on-click="this.openLog">
+                        <i class="oi me-1" data-icon="warning"/><t t-out="this.data.events.critical"/> critical alerts
+                    </button>
+                    <div t-if="this.nextBank" class="o_vesta_cc_spotlight d-flex align-items-center gap-2 px-3 py-2">
+                        <img t-att-src="this.nextBank.logo" t-att-alt="this.nextBank.name"/>
+                        <div class="lh-sm">
+                            <div class="small o_vesta_cc_spotlight_label">Next payment goes to</div>
+                            <strong t-out="this.nextBank.name"/>
+                            <div class="small o_vesta_cc_spotlight_label" t-out="this.modeLabel"/>
+                        </div>
+                    </div>
                     <div class="o_vesta_cc_periods btn-group" role="group">
                         <t t-foreach="this.periods" t-as="period" t-key="period.key">
                             <button type="button" class="btn"
@@ -32,14 +43,14 @@
                 <section class="row g-3 mb-4">
                     <div class="col-6 col-xl-3">
                         <div class="o_vesta_cc_kpi p-3 h-100">
-                            <div class="o_vesta_cc_kpi_label"><i class="oi me-1" data-icon="payments"/>Payments</div>
+                            <div class="o_vesta_cc_kpi_label"><span class="o_vesta_cc_kpi_icon"><i class="oi" data-icon="payments"/></span>Payments</div>
                             <div class="o_vesta_cc_kpi_value" t-out="this.number(this.data.kpis.attempts)"/>
                             <div class="small text-muted"><t t-out="this.number(this.data.kpis.done)"/> confirmed · <t t-out="this.number(this.data.kpis.failed)"/> failed</div>
                         </div>
                     </div>
                     <div class="col-6 col-xl-3">
                         <div class="o_vesta_cc_kpi p-3 h-100">
-                            <div class="o_vesta_cc_kpi_label"><i class="oi me-1" data-icon="check_circle"/>Success rate</div>
+                            <div class="o_vesta_cc_kpi_label"><span class="o_vesta_cc_kpi_icon"><i class="oi" data-icon="check_circle"/></span>Success rate</div>
                             <div class="o_vesta_cc_kpi_value">
                                 <t t-if="this.data.kpis.success_rate !== null"><t t-out="this.data.kpis.success_rate"/>%</t>
                                 <t t-else="">—</t>
@@ -49,14 +60,14 @@
                     </div>
                     <div class="col-6 col-xl-3">
                         <div class="o_vesta_cc_kpi p-3 h-100">
-                            <div class="o_vesta_cc_kpi_label"><i class="oi me-1" data-icon="account_balance"/>Collected</div>
+                            <div class="o_vesta_cc_kpi_label"><span class="o_vesta_cc_kpi_icon"><i class="oi" data-icon="account_balance"/></span>Collected</div>
                             <div class="o_vesta_cc_kpi_value" t-out="this.number(this.data.kpis.amount)"/>
                             <div class="small text-muted">Rial, confirmed by the banks</div>
                         </div>
                     </div>
                     <div class="col-6 col-xl-3">
                         <div class="o_vesta_cc_kpi p-3 h-100" t-att-class="{ 'o_vesta_cc_kpi_warn': this.data.kpis.pending }">
-                            <div class="o_vesta_cc_kpi_label"><i class="oi me-1" data-icon="schedule"/>Awaiting bank</div>
+                            <div class="o_vesta_cc_kpi_label"><span class="o_vesta_cc_kpi_icon"><i class="oi" data-icon="schedule"/></span>Awaiting bank</div>
                             <div class="o_vesta_cc_kpi_value" t-out="this.number(this.data.kpis.pending)"/>
                             <div class="small text-muted">Retried every 5 minutes</div>
                         </div>
@@ -95,11 +106,11 @@
                             </div>
 
                             <h3 class="h6 mb-2">Next payments</h3>
-                            <div t-if="this.data.preview.length" class="o_vesta_cc_flow d-flex flex-wrap gap-2">
+                            <div t-if="this.data.preview.length" class="o_vesta_cc_flow d-flex flex-wrap">
                                 <t t-foreach="this.data.preview" t-as="step" t-key="step_index">
                                     <t t-set="bank" t-value="this.bankByCode(step.code)"/>
                                     <div class="o_vesta_cc_step" t-att-class="{ 'o_vesta_cc_step_next': step_index === 0 }"
-                                         t-att-style="'border-color: ' + bank.color" t-att-title="bank.name">
+                                         t-att-style="'border-color: ' + bank.shade" t-att-title="bank.name">
                                         <img t-att-src="bank.logo" t-att-alt="bank.name"/>
                                         <span class="o_vesta_cc_step_index" t-out="step_index + 1"/>
                                     </div>
@@ -126,9 +137,10 @@
                                 <ul class="list-unstyled mb-0 flex-grow-1 o_vesta_cc_legend">
                                     <t t-foreach="this.installedBanks" t-as="bank" t-key="bank.id">
                                         <li class="d-flex align-items-center gap-2 py-1">
-                                            <span class="o_vesta_cc_dot" t-att-style="'background: ' + bank.color"/>
+                                            <span class="o_vesta_cc_dot" t-att-style="'background: ' + bank.shade"/>
                                             <span class="me-auto text-truncate" t-out="bank.name"/>
                                             <span class="text-muted small" t-out="this.number(bank.attempts)"/>
+                                            <span class="o_vesta_cc_legend_pct" t-out="this.percentOf(bank.attempts)"/>
                                         </li>
                                     </t>
                                 </ul>
@@ -139,7 +151,7 @@
                                     <div class="o_vesta_cc_bar_wrap d-flex flex-column align-items-center" t-att-title="bucket.label + ': ' + this.bucketTotal(bucket)">
                                         <div class="o_vesta_cc_bar d-flex flex-column-reverse" t-att-style="this.barStyle(bucket)">
                                             <t t-foreach="this.installedBanks" t-as="bank" t-key="bank.id">
-                                                <div t-if="bucket.counts[bank.code]" class="o_vesta_cc_segment" t-att-style="'flex-grow: ' + bucket.counts[bank.code] + '; background: ' + bank.color"/>
+                                                <div t-if="bucket.counts[bank.code]" class="o_vesta_cc_segment" t-att-style="'flex-grow: ' + bucket.counts[bank.code] + '; background: ' + bank.shade"/>
                                             </t>
                                         </div>
                                         <span class="o_vesta_cc_bar_label" t-out="bucket.label"/>
@@ -147,6 +159,102 @@
                                 </t>
                             </div>
                             <div t-else="" class="text-muted small">No payment in this period yet.</div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <!-- Health & alerts -->
+                    <div class="col-12 col-xl-5">
+                        <section class="o_vesta_cc_panel p-3 p-lg-4 h-100">
+                            <h2 class="h5 mb-1"><i class="oi me-1" data-icon="speed"/>Health and failover</h2>
+                            <p class="small text-muted mb-3">Successful and failed payments in the last <t t-out="this.data.monitoring.window"/> minutes.</p>
+                            <div class="row g-2 mb-3 o_vesta_cc_settings">
+                                <label class="col-6 small text-muted">Alert above failure rate (%)
+                                    <input type="number" min="0" max="100" class="form-control form-control-sm" t-att-value="this.data.monitoring.alert_rate"
+                                           t-att-disabled="!this.data.can_edit" t-on-change="(ev) => this.updateMonitoring('alert_rate', ev)"/>
+                                </label>
+                                <label class="col-6 small text-muted">Skip bank below success rate (%)
+                                    <input type="number" min="0" max="100" class="form-control form-control-sm" t-att-value="this.data.monitoring.min_success"
+                                           t-att-disabled="!this.data.can_edit" t-on-change="(ev) => this.updateMonitoring('min_success', ev)"/>
+                                </label>
+                                <label class="col-6 small text-muted">Window (minutes)
+                                    <input type="number" min="5" class="form-control form-control-sm" t-att-value="this.data.monitoring.window"
+                                           t-att-disabled="!this.data.can_edit" t-on-change="(ev) => this.updateMonitoring('window', ev)"/>
+                                </label>
+                                <label class="col-6 small text-muted">Minimum payments to judge
+                                    <input type="number" min="1" class="form-control form-control-sm" t-att-value="this.data.monitoring.min_payments"
+                                           t-att-disabled="!this.data.can_edit" t-on-change="(ev) => this.updateMonitoring('min_payments', ev)"/>
+                                </label>
+                                <div class="col-12">
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" type="checkbox" id="o_vesta_cc_uptime" t-att-checked="this.data.monitoring.uptime"
+                                               t-att-disabled="!this.data.can_edit" t-on-change="(ev) => this.updateMonitoring('uptime', ev)"/>
+                                        <label class="form-check-label small" for="o_vesta_cc_uptime">Uptime probes every 10 minutes; a bank that stops answering is skipped</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <t t-foreach="this.installedBanks" t-as="bank" t-key="bank.id">
+                                <div class="o_vesta_cc_health py-2">
+                                    <div class="d-flex align-items-center gap-2 small mb-1">
+                                        <img t-att-src="bank.logo" class="o_vesta_cc_mini_logo" t-att-alt="bank.name"/>
+                                        <span class="fw-semibold me-auto text-truncate" t-out="bank.name"/>
+                                        <span class="o_vesta_cc_ok"><t t-out="this.number(bank.window_done)"/> ✓</span>
+                                        <span class="o_vesta_cc_ko"><t t-out="this.number(bank.window_failed)"/> ✕</span>
+                                        <strong class="o_vesta_cc_rate" t-att-class="{ 'text-danger': this.isUnhealthy(bank) }">
+                                            <t t-if="bank.window_rate !== null"><t t-out="bank.window_rate"/>%</t><t t-else="">—</t>
+                                        </strong>
+                                    </div>
+                                    <div class="o_vesta_cc_track o_vesta_cc_health_track">
+                                        <div class="o_vesta_cc_fill" t-att-class="{ 'o_vesta_cc_fill_bad': this.isUnhealthy(bank) }" t-att-style="this.healthStyle(bank)"/>
+                                        <span t-if="this.data.monitoring.min_success" class="o_vesta_cc_threshold" t-att-style="this.thresholdStyle()"/>
+                                    </div>
+                                    <div t-if="bank.blocked" class="small mt-1 o_vesta_cc_failover">
+                                        <i class="oi me-1" data-icon="shuffle"/><t t-out="this.blockedLabel(bank)"/>
+                                        <t t-if="bank.fallback"> → <strong t-out="bank.fallback"/></t>
+                                    </div>
+                                </div>
+                            </t>
+                        </section>
+                    </div>
+
+                    <!-- Smart log -->
+                    <div class="col-12 col-xl-7">
+                        <section class="o_vesta_cc_panel p-3 p-lg-4 h-100 d-flex flex-column">
+                            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                                <h2 class="h5 mb-0 me-auto"><i class="oi me-1" data-icon="info"/>Smart log</h2>
+                                <span class="o_vesta_cc_count o_vesta_cc_count_critical" title="Critical"><t t-out="this.data.events.critical"/></span>
+                                <span class="o_vesta_cc_count o_vesta_cc_count_error" title="Errors"><t t-out="this.data.events.error"/></span>
+                                <span class="o_vesta_cc_count o_vesta_cc_count_warning" title="Warnings"><t t-out="this.data.events.warning"/></span>
+                                <button t-if="this.data.events.rows.length and this.data.can_edit" type="button" class="btn btn-sm btn-light" t-on-click="this.resolveAll">Resolve all</button>
+                                <button type="button" class="btn btn-sm btn-light" t-on-click="this.openLog">Full log</button>
+                            </div>
+                            <div t-if="!this.data.events.rows.length" class="o_vesta_cc_empty flex-grow-1 d-flex flex-column align-items-center justify-content-center text-center p-4">
+                                <i class="oi mb-2" data-icon="verified"/>
+                                <strong>No open problem</strong>
+                                <span class="small text-muted">Errors of the banks, attacks and alerts appear here with what to do.</span>
+                            </div>
+                            <div t-else="" class="o_vesta_cc_log flex-grow-1">
+                                <t t-foreach="this.data.events.rows" t-as="event" t-key="event.id">
+                                    <div class="o_vesta_cc_event d-flex gap-3 py-2" t-att-data-level="event.level">
+                                        <span class="o_vesta_cc_level"/>
+                                        <div class="flex-grow-1 min-w-0">
+                                            <div class="d-flex flex-wrap align-items-center gap-2 small">
+                                                <span class="o_vesta_cc_chip" t-out="event.category"/>
+                                                <span t-if="event.bank" class="fw-semibold" t-out="event.bank"/>
+                                                <span t-if="event.code" class="text-muted">#<t t-out="event.code"/></span>
+                                                <span t-if="event.occurrences > 1" class="o_vesta_cc_times">×<t t-out="event.occurrences"/></span>
+                                                <span class="ms-auto text-muted" t-out="this.timeAgo(event.last_seen)"/>
+                                            </div>
+                                            <div class="text-truncate" t-att-title="event.name" t-out="event.name"/>
+                                            <div t-if="event.advice" class="small o_vesta_cc_advice"><i class="oi me-1" data-icon="info"/><t t-out="event.advice"/></div>
+                                        </div>
+                                        <button t-if="this.data.can_edit" type="button" class="btn btn-sm btn-link align-self-center" title="Resolve" t-on-click="() => this.resolveEvent(event)">
+                                            <i class="oi" data-icon="check_circle"/>
+                                        </button>
+                                    </div>
+                                </t>
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -162,7 +270,7 @@
                     </div>
 
                     <t t-foreach="this.installedBanks" t-as="bank" t-key="bank.id">
-                        <div class="o_vesta_cc_bank p-3 mb-3" t-att-data-bank="bank.code" t-att-style="'--vesta-bank-color: ' + bank.color">
+                        <div class="o_vesta_cc_bank p-3 mb-3" t-att-data-bank="bank.code" t-att-style="'--vesta-bank-color: ' + bank.shade">
                             <div class="row g-3 align-items-center">
                                 <!-- Identity -->
                                 <div class="col-12 col-xl-3 d-flex align-items-center gap-2">
@@ -231,10 +339,10 @@
                                 <!-- Share -->
                                 <div class="col-12 col-md-6 col-xl-3">
                                     <div class="small text-muted d-flex justify-content-between"><span>Today's share</span><span><t t-out="bank.actual_share"/>%</span></div>
-                                    <div class="o_vesta_cc_track mb-2"><div class="o_vesta_cc_fill" t-att-style="this.shareStyle(bank.actual_share, bank.color)"/></div>
+                                    <div class="o_vesta_cc_track mb-2"><div class="o_vesta_cc_fill" t-att-style="this.shareStyle(bank.actual_share, bank.shade)"/></div>
                                     <t t-if="bank.target_share != null">
                                         <div class="small text-muted d-flex justify-content-between"><span>Target</span><span><t t-out="bank.target_share"/>%</span></div>
-                                        <div class="o_vesta_cc_track o_vesta_cc_track_target mb-2"><div class="o_vesta_cc_fill" t-att-style="this.shareStyle(bank.target_share, bank.color)"/></div>
+                                        <div class="o_vesta_cc_track o_vesta_cc_track_target mb-2"><div class="o_vesta_cc_fill" t-att-style="this.shareStyle(bank.target_share, bank.shade)"/></div>
                                     </t>
                                     <div class="small">
                                         <span class="me-2"><t t-out="this.number(bank.today_done)"/> today</span>
@@ -275,7 +383,7 @@
                     <div t-if="this.otherBanks.length" class="row g-3">
                         <t t-foreach="this.otherBanks" t-as="bank" t-key="bank.id">
                             <div class="col-12 col-md-6 col-xl-3">
-                                <div class="o_vesta_cc_bank o_vesta_cc_bank_off p-3 h-100 d-flex align-items-center gap-2" t-att-style="'--vesta-bank-color: ' + bank.color">
+                                <div class="o_vesta_cc_bank o_vesta_cc_bank_off p-3 h-100 d-flex align-items-center gap-2" t-att-style="'--vesta-bank-color: ' + bank.shade">
                                     <img t-att-src="bank.logo" t-att-alt="bank.name" class="o_vesta_cc_bank_logo"/>
                                     <div class="flex-grow-1 min-w-0">
                                         <strong class="d-block text-truncate" t-out="bank.name"/>

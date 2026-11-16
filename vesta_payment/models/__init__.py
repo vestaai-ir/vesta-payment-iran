@@ -8,5 +8,6 @@ from . import (
     res_company,
     vesta_payment_bank,
     vesta_payment_control,
+    vesta_payment_event,
     vesta_payment_router,
 )

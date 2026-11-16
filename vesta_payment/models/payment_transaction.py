@@ -125,10 +125,18 @@ class PaymentTransaction(models.Model):
         try:
             rendering_values = self._vesta_request_payment()
         except ValidationError as error:
-            if not isinstance(error, utils.BankRefusal):  # The bank is unreachable or broken
+            message = str(error.args[0] if error.args else error)
+            refusal = isinstance(error, utils.BankRefusal)
+            self.env["vesta.payment.event"]._log(
+                "payment_request" if refusal or "(" in message else "connection",
+                message,
+                transaction=self,
+                level="warning" if refusal else "error",
+            )
+            if not refusal:  # The bank is unreachable or broken
                 self.provider_id._vesta_register_failure()
             self.vesta_verify_state = "failed"
-            self._set_error(str(error.args[0] if error.args else error))
+            self._set_error(message)
             return {}
         self.provider_id._vesta_register_success()
         _logger.info(
@@ -170,6 +178,12 @@ class PaymentTransaction(models.Model):
         expected_token = payment_utils.generate_access_token(provider_code, order_id, env=self.env)
         if not consteq(access_token or "", expected_token):
             _logger.warning("Rejected a %s return with an invalid signature for order %s.", provider_code, order_id)
+            self.env["vesta.payment.event"]._log(
+                "suspicious",
+                self.env._("A return with an invalid signature was rejected (order %s).", order_id),
+                provider=self.env["payment.provider"].sudo().search([("code", "=", provider_code)], limit=1),
+                level="warning",
+            )
             return self.browse()
         tx = self.search(Domain("vesta_order_id", "=", order_id) & Domain("provider_code", "=", provider_code), limit=1)
         if not tx:
@@ -199,8 +213,14 @@ class PaymentTransaction(models.Model):
             return
 
         callback = tx._vesta_parse_callback(data)
-        if callback is None:
-            return  # Inconsistent data, already logged by the bank module
+        if callback is None:  # Inconsistent data
+            self.env["vesta.payment.event"]._log(
+                "suspicious",
+                self.env._("A return that didn't match payment %s was ignored.", tx.reference),
+                transaction=tx,
+                level="warning",
+            )
+            return
         tx.vesta_callback_data = callback
         if not callback.get("success"):
             tx.vesta_verify_state = "failed"
@@ -210,7 +230,8 @@ class PaymentTransaction(models.Model):
             tx._vesta_claim_receipt(callback.get("bank_reference"))
         except ValidationError as error:
             tx.vesta_verify_state = "failed"
-            tx._record({"vesta_status": "error", "vesta_message": str(error.args[0])})
+            self.env["vesta.payment.event"]._log("double_spend", str(error.args[0]), transaction=tx, level="critical")
+            tx._record({"vesta_status": "error", "vesta_message": str(error.args[0]), "vesta_logged": True})
             return
         tx._vesta_verify_and_record(callback)
 
@@ -283,6 +304,7 @@ class PaymentTransaction(models.Model):
                 str(error.args[0] if error.args else error),
             )
             _logger.warning("Verification of %s failed, will retry: %s", self.reference, message)
+            self.env["vesta.payment.event"]._log("connection", message, transaction=self, level="warning")
             self._set_pending(state_message=message)
             return
         self._record(payment_data)
@@ -332,11 +354,13 @@ class PaymentTransaction(models.Model):
             message += " " + self.env._("The payment was reversed to the customer's card.")
         else:
             message += " " + self.env._("Reverse it from the bank's merchant panel.")
+        self.env["vesta.payment.event"]._log("amount_mismatch", message, transaction=self, level="critical")
         return {
             **values,
             "vesta_status": "error",
             "vesta_message": message,
             "vesta_verify_state": "reversed" if reversed_ else "failed",
+            "vesta_logged": True,
         }
 
     # === BUSINESS METHODS - PROCESSING === #
@@ -371,6 +395,8 @@ class PaymentTransaction(models.Model):
         elif status == "cancel":
             self._set_canceled(state_message=message or self.env._("The payment was canceled."))
         else:
+            if not payment_data.get("vesta_logged") and self.operation != "refund":
+                self.env["vesta.payment.event"]._log("verification", message or "", transaction=self)
             self._set_error(message or self.env._("The bank refused the payment."))
 
     def _extract_amount_data(self, payment_data):
@@ -451,3 +477,23 @@ class PaymentTransaction(models.Model):
                 tx._set_canceled(state_message=self.env._("The customer did not complete the payment."))
             if not IrCron._commit_progress(processed=1):
                 return
+
+        self._vesta_run_uptime_probes()
+        self.env["vesta.payment.event"]._check_failure_alerts()
+        IrCron._commit_progress()
+
+    def _vesta_run_uptime_probes(self):
+        """Probe the published banks of the companies that asked for uptime probes."""
+        due = fields.Datetime.now() - timedelta(minutes=const.UPTIME_PROBE_MINUTES)
+        providers = (
+            self.env["payment.provider"]
+            .sudo()
+            .search(
+                Domain("code", "in", const.BANK_CODES)
+                & Domain("is_published", "=", True)
+                & Domain("company_id.vesta_uptime_check", "=", True)
+                & (Domain("vesta_check_date", "=", False) | Domain("vesta_check_date", "<", due))
+            )
+        )
+        for provider in providers:
+            provider._vesta_probe()

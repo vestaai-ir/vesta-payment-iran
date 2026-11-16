@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0+e-20261109\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-16 00:50+0000\n"
-"PO-Revision-Date: 2026-11-16 00:50+0000\n"
+"POT-Creation-Date: 2026-11-16 01:12+0000\n"
+"PO-Revision-Date: 2026-11-16 01:12+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,34 @@ msgstr ""
 #. odoo-python
 #: code:addons/vesta_payment/models/payment_provider.py:0
 msgid "%(bank)s (%(mode)s): connection failed"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid ""
+"%(bank)s failed %(count)s times in a row and is paused in routing for "
+"%(minutes)s minutes."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/vesta_payment_event.py:0
+msgid ""
+"%(bank)s: %(rate)s%% of the last %(total)s payments failed (threshold "
+"%(limit)s%%)."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "%s d ago"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "%s h ago"
 msgstr ""
 
 #. module: vesta_payment
@@ -71,6 +99,12 @@ msgstr ""
 
 #. module: vesta_payment
 #. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "%s min ago"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "0 = no limit"
 msgstr ""
@@ -101,6 +135,18 @@ msgstr ""
 
 #. module: vesta_payment
 #. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "A return that didn't match payment %s was ignored."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "A return with an invalid signature was rejected (order %s)."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
 #: code:addons/vesta_payment/models/payment_provider.py:0
 msgid "A rotation batch takes at least one payment."
 msgstr ""
@@ -111,9 +157,40 @@ msgid "API"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_alert_failure_rate
+msgid "Alert Above Failure Rate (%)"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_alert_min_payments
+msgid "Alert Minimum Payments"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_alert_window
+msgid "Alert Window (minutes)"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Alert above failure rate (%)"
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "All payments"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__amount_mismatch
+msgid "Amount mismatch"
+msgstr ""
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Attacks"
 msgstr ""
 
 #. module: vesta_payment
@@ -141,7 +218,9 @@ msgstr ""
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__name
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__provider_id
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_form
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
 msgid "Bank"
 msgstr ""
 
@@ -149,6 +228,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_callback_data
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_form
 msgid "Bank Callback"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__code
+msgid "Bank Code"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model,name:vesta_payment.model_vesta_payment_event
+msgid "Bank Gateway Log"
 msgstr ""
 
 #. module: vesta_payment
@@ -215,6 +304,23 @@ msgid "Bank Verification"
 msgstr ""
 
 #. module: vesta_payment
+#: model_terms:ir.actions.act_window,help:vesta_payment.action_vesta_payment_event
+msgid ""
+"Bank errors, failed verifications, attacks and failure-rate alerts appear "
+"here, diagnosed and grouped, with what to do."
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__outage
+msgid "Bank outage"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__bank_paused
+msgid "Bank paused"
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_banks
@@ -254,6 +360,12 @@ msgid "Card Number"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__category
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Category"
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__check_date
 msgid "Check Date"
 msgstr ""
@@ -286,6 +398,7 @@ msgstr ""
 
 #. module: vesta_payment
 #: model:ir.model,name:vesta_payment.model_res_company
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__company_id
 msgid "Company"
 msgstr ""
 
@@ -303,6 +416,16 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Confirmed among finished payments"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__connection
+msgid "Connection"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__connection_test
+msgid "Connection test"
 msgstr ""
 
 #. module: vesta_payment
@@ -324,18 +447,33 @@ msgstr ""
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__create_uid
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__create_date
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__credentials
+msgid "Credentials"
 msgstr ""
 
 #. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Credentials missing"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__level__critical
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Critical"
 msgstr ""
 
 #. module: vesta_payment
@@ -397,6 +535,7 @@ msgstr ""
 
 #. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_search
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
 msgid "Day"
 msgstr ""
 
@@ -430,6 +569,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__display_name
 #: model:ir.model.fields,field_description:vesta_payment.field_res_company__display_name
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__display_name
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__display_name
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_router__display_name
 msgid "Display Name"
 msgstr ""
@@ -465,6 +605,31 @@ msgid "Edition"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__level__error
+msgid "Error"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Errors"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Errors of the banks, attacks and alerts appear here with what to do."
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_uptime_check
+msgid ""
+"Every 10 minutes, ask each published bank for a payment token that is never "
+"used. A bank that doesn't answer three times in a row is paused in routing "
+"until it answers again."
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.js:0
 msgid "Every live bank is listed and the customer picks one."
@@ -487,6 +652,28 @@ msgid "Failed or canceled in the last 30 days"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__failure_rate
+msgid "Failure rate alert"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__first_seen
+msgid "First Seen"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Full log"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.actions.act_window,name:vesta_payment.action_vesta_payment_event
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_events
+msgid "Gateway Log"
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__missing
@@ -505,11 +692,18 @@ msgid "Go Live"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Health and failover"
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_method__id
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__id
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__id
 #: model:ir.model.fields,field_description:vesta_payment.field_res_company__id
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__id
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__id
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_router__id
 msgid "ID"
 msgstr ""
@@ -562,8 +756,23 @@ msgid "Is Configured"
 msgstr ""
 
 #. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Last 24 hours"
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_check_date
 msgid "Last Connection Test"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__transaction_id
+msgid "Last Payment"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__last_seen
+msgid "Last Seen"
 msgstr ""
 
 #. module: vesta_payment
@@ -578,12 +787,20 @@ msgstr ""
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__write_uid
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__write_date
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__level
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Level"
 msgstr ""
 
 #. module: vesta_payment
@@ -603,6 +820,13 @@ msgid ""
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_alert_failure_rate
+msgid ""
+"Log a critical alert when this share of a bank's payments failed in the "
+"alert window. 0 disables alerts."
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__image_128
 msgid "Logo"
 msgstr ""
@@ -611,6 +835,17 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Max / day"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_route_min_success
+msgid "Minimum Success Rate (%)"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Minimum payments to judge"
 msgstr ""
 
 #. module: vesta_payment
@@ -650,6 +885,12 @@ msgstr ""
 #. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Next payment goes to"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Next payments"
 msgstr ""
 
@@ -666,7 +907,18 @@ msgstr ""
 #. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "No open problem"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "No payment in this period yet."
+msgstr ""
+
+#. module: vesta_payment
+#: model_terms:ir.actions.act_window,help:vesta_payment.action_vesta_payment_event
+msgid "No problem logged"
 msgstr ""
 
 #. module: vesta_payment
@@ -703,6 +955,11 @@ msgid ""
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__occurrences
+msgid "Occurrences"
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Off"
@@ -723,6 +980,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/vesta_payment/models/vesta_payment_control.py:0
 msgid "Only administrators can change the bank gateways."
+msgstr ""
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_search
+msgid "Open"
 msgstr ""
 
 #. module: vesta_payment
@@ -785,6 +1047,11 @@ msgid "Payment Transaction"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__payment_request
+msgid "Payment request"
+msgstr ""
+
+#. module: vesta_payment
 #: model:vesta.payment.bank,description:vesta_payment.bank_sadad
 msgid ""
 "Payment requests and verifications signed with the terminal's TripleDES key."
@@ -811,6 +1078,11 @@ msgid ""
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_alert_window
+msgid "Period over which failure and success rates are measured."
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields.selection,name:vesta_payment.selection__res_company__vesta_routing_mode__priority
 msgid "Priority with failover"
 msgstr ""
@@ -821,6 +1093,11 @@ msgstr ""
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__edition__pro
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Pro"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__name
+msgid "Problem"
 msgstr ""
 
 #. module: vesta_payment
@@ -840,9 +1117,55 @@ msgid "RRN"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_alert_min_payments
+msgid ""
+"Rates are only judged once a bank handled this many payments in the window."
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__double_spend
+msgid "Receipt reuse"
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Refresh"
+msgstr ""
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_form
+msgid "Reopen"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_form
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_list
+msgid "Resolve"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Resolve all"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__resolved
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_form
+msgid "Resolved"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__resolved_uid
+msgid "Resolved By"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__resolved_date
+msgid "Resolved On"
 msgstr ""
 
 #. module: vesta_payment
@@ -860,6 +1183,11 @@ msgstr ""
 #. module: vesta_payment
 #: model:ir.model.fields,help:vesta_payment.field_payment_transaction__vesta_rrn
 msgid "Retrieval reference number."
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__domain
+msgid "Return domain"
 msgstr ""
 
 #. module: vesta_payment
@@ -916,6 +1244,14 @@ msgstr ""
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_routing_weight
 msgid "Routing Weight"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_route_min_success
+msgid ""
+"Routing skips a bank whose success rate over the alert window falls below "
+"this percentage, and sends the payments to the next bank. 0 disables the "
+"check."
 msgstr ""
 
 #. module: vesta_payment
@@ -987,6 +1323,16 @@ msgid "Sequence"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__ip
+msgid "Server IP"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__clock
+msgid "Server clock"
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,help:vesta_payment.field_payment_provider__vesta_sandbox_url
 msgid ""
 "Server used while the provider is in test mode. Requests to the bank's "
@@ -1005,6 +1351,18 @@ msgid ""
 "Share of the payments this bank takes in weighted distribution, relative to "
 "the other banks: with weights 60, 30 and 10, the banks take 60%, 30% and "
 "10%."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Skip bank below success rate (%)"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Smart log"
 msgstr ""
 
 #. module: vesta_payment
@@ -1033,8 +1391,25 @@ msgid "Success rate"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "Success rate below the minimum"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Successful and failed payments in the last"
+msgstr ""
+
+#. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Successful payments in the last 30 days"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__suspicious
+msgid "Suspicious return"
 msgstr ""
 
 #. module: vesta_payment
@@ -1313,6 +1688,22 @@ msgid "Unsupported search on Iranian bank gateways."
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_uptime_check
+msgid "Uptime Probes"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Uptime probes every 10 minutes; a bank that stops answering is skipped"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__category__verification
+msgid "Verification"
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_retry_count
 msgid "Verification Retries"
 msgstr ""
@@ -1365,6 +1756,17 @@ msgid "Waiting for the bank's confirmation"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_event__level__warning
+msgid "Warning"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Warnings"
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "Weight"
@@ -1373,6 +1775,18 @@ msgstr ""
 #. module: vesta_payment
 #: model:ir.model.fields.selection,name:vesta_payment.selection__res_company__vesta_routing_mode__weighted
 msgid "Weighted distribution"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_event__advice
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_event_form
+msgid "What to Do"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Window (minutes)"
 msgstr ""
 
 #. module: vesta_payment
@@ -1401,6 +1815,12 @@ msgstr ""
 #. module: vesta_payment
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "critical alerts"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "failed"
 msgstr ""
@@ -1417,6 +1837,12 @@ msgid "in test mode"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "just now"
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-python
 #: code:addons/vesta_payment/models/payment_provider.py:0
 msgid "live"
@@ -1426,6 +1852,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 msgid "live,"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "minutes."
 msgstr ""
 
 #. module: vesta_payment
