@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="vesta_payment_bank_kanban" model="ir.ui.view">
+        <field name="name">vesta.payment.bank.kanban</field>
+        <field name="model">vesta.payment.bank</field>
+        <field name="arch" type="xml">
+            <kanban create="false" quick_create="false" class="o_vesta_bank_kanban" can_open="false">
+                <field name="state"/>
+                <field name="edition"/>
+                <field name="color"/>
+                <field name="is_configured"/>
+                <field name="check_ok"/>
+                <field name="check_date"/>
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="card" class="flex-row p-0 overflow-hidden">
+                        <t t-set="state" t-value="record.state.raw_value"/>
+                        <t t-set="installed" t-value="['disabled', 'test', 'live'].includes(state)"/>
+                        <div class="flex-shrink-0" t-attf-style="width: 6px; background: {{ record.color.raw_value or '#714B67' }};"/>
+                        <div class="flex-grow-1 p-3 d-flex flex-column gap-2">
+                            <div class="d-flex align-items-start gap-3">
+                                <field name="image_128" widget="image" class="flex-shrink-0" options="{'img_class': 'o_image_64_max border rounded-3 p-1 bg-white'}"/>
+                                <div class="flex-grow-1 min-w-0">
+                                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                                        <field name="name" class="fw-bold fs-4"/>
+                                        <span t-if="state == 'live'" class="badge rounded-pill text-bg-success">Live</span>
+                                        <span t-if="state == 'test'" class="badge rounded-pill text-bg-warning">Test Mode</span>
+                                        <span t-if="state == 'disabled'" class="badge rounded-pill text-bg-secondary">Disabled</span>
+                                        <span t-if="state == 'uninstalled'" class="badge rounded-pill text-bg-light border">Not Installed</span>
+                                        <span t-if="state == 'missing'" class="badge rounded-pill text-bg-primary">Pro</span>
+                                    </div>
+                                    <div class="text-muted small">
+                                        <field name="psp_name"/> · <field name="protocol"/>
+                                    </div>
+                                    <field name="description" class="small d-block mt-1"/>
+                                </div>
+                            </div>
+                            <div t-if="installed" class="d-flex flex-wrap gap-3 small border-top pt-2">
+                                <span title="Successful payments in the last 30 days">
+                                    <i class="fa fa-check-circle text-success"/> <field name="transaction_count"/> payments
+                                </span>
+                                <span title="Collected in the last 30 days, in Rials">
+                                    <i class="fa fa-money text-muted"/> <field name="amount_total" widget="monetary"/>
+                                </span>
+                                <span t-if="record.failure_count.raw_value" title="Failed or canceled in the last 30 days">
+                                    <i class="fa fa-times-circle text-danger"/> <field name="failure_count"/> failed
+                                </span>
+                                <span t-if="record.pending_count.raw_value" title="Waiting for the bank's confirmation">
+                                    <i class="fa fa-clock-o text-warning"/> <field name="pending_count"/> awaiting bank
+                                </span>
+                            </div>
+                            <div t-if="installed and record.check_date.raw_value" class="small">
+                                <span t-if="record.check_ok.raw_value" class="text-success"><i class="fa fa-plug"/> <field name="check_message"/></span>
+                                <span t-else="" class="text-danger"><i class="fa fa-plug"/> <field name="check_message"/></span>
+                            </div>
+                            <div t-if="installed and !record.is_configured.raw_value" class="small text-warning">
+                                <i class="fa fa-exclamation-triangle"/> Credentials are missing. Configure the bank before going live.
+                            </div>
+                            <field t-if="state == 'test'" name="sandbox_note" class="small text-muted d-block"/>
+                            <div class="d-flex flex-wrap gap-1 mt-auto pt-1">
+                                <t t-if="installed">
+                                    <button name="action_open_provider" type="object" class="btn btn-sm btn-primary">Configure</button>
+                                    <button t-if="state != 'live'" name="action_set_live" type="object" class="btn btn-sm btn-success" confirm="Customers will pay with real cards on the bank's production server. Continue?">Go Live</button>
+                                    <button t-if="state != 'test'" name="action_set_test" type="object" class="btn btn-sm btn-warning">Test Mode</button>
+                                    <button t-if="state != 'disabled'" name="action_disable" type="object" class="btn btn-sm btn-secondary">Disable</button>
+                                    <button name="action_test_connection" type="object" class="btn btn-sm btn-link"><i class="fa fa-plug"/> Test Connection</button>
+                                    <button name="action_view_transactions" type="object" class="btn btn-sm btn-link">Payments</button>
+                                </t>
+                                <button t-if="state == 'uninstalled'" name="action_install" type="object" class="btn btn-sm btn-primary">Install</button>
+                                <a t-if="state == 'missing'" href="https://vestaai.ir" target="_blank" role="button" class="btn btn-sm btn-primary">Get Vesta Gateway Pro</a>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="vesta_payment_bank_list" model="ir.ui.view">
+        <field name="name">vesta.payment.bank.list</field>
+        <field name="model">vesta.payment.bank</field>
+        <field name="arch" type="xml">
+            <list create="false" delete="false">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="psp_name"/>
+                <field name="protocol"/>
+                <field name="module_name" optional="hide"/>
+                <field name="state" widget="badge" decoration-success="state == 'live'" decoration-warning="state == 'test'" decoration-muted="state in ('disabled', 'uninstalled')" decoration-info="state == 'missing'"/>
+                <field name="transaction_count"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="amount_total"/>
+                <field name="failure_count" optional="show"/>
+                <field name="pending_count" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="vesta_payment_bank_search" model="ir.ui.view">
+        <field name="name">vesta.payment.bank.search</field>
+        <field name="model">vesta.payment.bank</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="psp_name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_vesta_payment_bank" model="ir.actions.act_window">
+        <field name="name">Vesta Gateway</field>
+        <field name="res_model">vesta.payment.bank</field>
+        <field name="path">vesta-gateway</field>
+        <field name="view_mode">kanban,list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No bank gateway listed</p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,75 @@
+<section class="container" style="max-width: 1100px;">
+    <div class="text-center my-4">
+        <img src="banner.png" alt="Vesta Gateway" class="img-fluid" style="border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.25);"/>
+    </div>
+
+    <div dir="rtl" class="my-5">
+        <h2 style="font-weight: 800;">درگاه وستا؛ کامل‌ترین درگاه پرداخت بانک‌های ایرانی برای اودو ۲۰</h2>
+        <p class="lead">ملت، سامان، ملی (سداد)، پاسارگاد و پارسیان روی یک هسته‌ی امن، با یک داشبورد برای نصب، آزمایش، روشن و خاموش کردن و پایش همه‌ی بانک‌ها. هر پرداخت سرور به سرور با بانک تأیید می‌شود و اگر مبلغ یا رسید درست نباشد، پول خودکار به کارت مشتری برمی‌گردد.</p>
+
+        <div class="row g-4 my-4">
+            <div class="col-md-4">
+                <h4>🏦 پرداخت</h4>
+                <ul>
+                    <li>پنج بانک اصلی شاپرک با جدیدترین سرویس‌ها</li>
+                    <li>ملت با REST یا SOAP به انتخاب شما</li>
+                    <li>تأیید، تسویه و تأیید نهایی خودکار</li>
+                    <li>استرداد از داخل اودو (سامان، پاسارگاد، پارسیان)</li>
+                    <li>ریال و تومان؛ نمایش کارت‌های ذخیره‌شده‌ی مشتری</li>
+                    <li>فروشگاه، پورتال، فاکتور و سفارش فروش</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>🛡️ امنیت</h4>
+                <ul>
+                    <li>تأیید سرور به سرور هر پرداخت</li>
+                    <li>آدرس بازگشت امضاشده با HMAC</li>
+                    <li>جلوگیری از دوبار مصرف رسید (ایندکس یکتا)</li>
+                    <li>تطبیق مبلغ و برگشت خودکار وجه</li>
+                    <li>قفل تراکنش و تلاش دوباره‌ی خودکار</li>
+                    <li>پنهان شدن رمزها در لاگ؛ SOAP ایمن در برابر XXE</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>🎛️ مدیریت</h4>
+                <ul>
+                    <li>داشبورد بانک‌ها با آمار ۳۰ روز</li>
+                    <li>عملیاتی / آزمایشی / غیرفعال با یک کلیک</li>
+                    <li>آزمایش اتصال بدون جابه‌جایی پول</li>
+                    <li>سندباکس banktest.ir آماده</li>
+                    <li>گزارش پرداخت‌ها با رسید، RRN و کارت پوشیده</li>
+                    <li>ترجمه‌ی کامل فارسی و پیام فارسی هر کد بانک</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-5">
+        <img src="screenshots/dashboard.jpg" alt="Vesta Gateway dashboard" class="img-fluid border rounded-3 shadow-sm"/>
+    </div>
+
+    <div class="row g-4 my-4">
+        <div class="col-md-6"><img src="screenshots/checkout_fa.jpg" alt="Checkout" class="img-fluid border rounded-3 shadow-sm"/></div>
+        <div class="col-md-6"><img src="screenshots/payments.jpg" alt="Bank payments" class="img-fluid border rounded-3 shadow-sm"/></div>
+    </div>
+
+    <div class="my-5">
+        <h3>Banks</h3>
+        <table class="table table-sm align-middle">
+            <thead><tr><th>Bank</th><th>Switch</th><th>API</th><th>Refund from Odoo</th><th>Module</th></tr></thead>
+            <tbody>
+                <tr><td>Bank Mellat</td><td>Behpardakht Mellat</td><td>REST + SOAP</td><td>—</td><td><code>vesta_payment_mellat</code> (open source)</td></tr>
+                <tr><td>Bank Saman</td><td>Saman Electronic Payment (SEP)</td><td>REST, OnlinePG 3.3</td><td>✔ (50 minutes)</td><td><code>vesta_payment_saman</code> (Pro)</td></tr>
+                <tr><td>Bank Melli</td><td>Sadad</td><td>REST, VPG v0, TripleDES</td><td>—</td><td><code>vesta_payment_sadad</code> (Pro)</td></tr>
+                <tr><td>Bank Pasargad</td><td>Pasargad Electronic Payment (PEP)</td><td>REST, Persa switch v13, JWT</td><td>✔</td><td><code>vesta_payment_pasargad</code> (Pro)</td></tr>
+                <tr><td>Bank Parsian</td><td>Parsian E-Commerce (PEC)</td><td>SOAP, NewIPG</td><td>✔</td><td><code>vesta_payment_parsian</code> (Pro)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="my-5">
+        <h3>Vesta Gateway: Iranian bank payments for Odoo 20</h3>
+        <p>Customers pick their bank on the website, customer portal or invoice payment link, pay on the bank's secure page and come back. Vesta Gateway confirms every payment server-to-server, checks the amount against the order, binds each bank receipt to a single order (double-spending protection) and reverses the money automatically when anything is off. A dashboard lists every bank with live, test and disabled toggles, a connection test that moves no money, and 30-day statistics.</p>
+        <p>Documentation: <a href="https://github.com/vestaai-ir/vesta-payment-iran/blob/20.0/docs/ACTIVATION.md">activation guide</a> · <a href="https://github.com/vestaai-ir/vesta-payment-iran/blob/20.0/docs/SECURITY.md">security</a> · <a href="https://github.com/vestaai-ir/vesta-payment-iran/blob/20.0/docs/INTEGRATION.md">integration details</a>.</p>
+    </div>
+</section>

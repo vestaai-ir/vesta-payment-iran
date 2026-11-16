@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_vesta_payment_docs" model="ir.actions.act_url">
+        <field name="name">Documentation</field>
+        <field name="url">https://github.com/vestaai-ir/vesta-payment-iran#readme</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_vesta_payment_root"
+              name="Vesta Gateway"
+              web_icon="vesta_payment,static/description/icon.png"
+              action="action_vesta_payment_bank"
+              groups="base.group_system"
+              sequence="910"/>
+
+    <menuitem id="menu_vesta_payment_banks"
+              name="Banks"
+              parent="menu_vesta_payment_root"
+              action="action_vesta_payment_bank"
+              sequence="10"/>
+
+    <menuitem id="menu_vesta_payment_transactions"
+              name="Payments"
+              parent="menu_vesta_payment_root"
+              action="action_vesta_payment_transaction"
+              sequence="20"/>
+
+    <menuitem id="menu_vesta_payment_config"
+              name="Configuration"
+              parent="menu_vesta_payment_root"
+              sequence="90"/>
+
+    <menuitem id="menu_vesta_payment_providers"
+              name="Bank Providers"
+              parent="menu_vesta_payment_config"
+              action="action_vesta_payment_provider"
+              sequence="10"/>
+
+    <menuitem id="menu_vesta_payment_methods"
+              name="Payment Methods"
+              parent="menu_vesta_payment_config"
+              action="payment.action_payment_method"
+              sequence="20"/>
+
+    <menuitem id="menu_vesta_payment_docs"
+              name="Documentation"
+              parent="menu_vesta_payment_config"
+              action="action_vesta_payment_docs"
+              sequence="90"/>
+
+</odoo>

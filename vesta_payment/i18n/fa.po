@@ -1,0 +1,960 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* vesta_payment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0+e-20261109\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-16 00:15+0000\n"
+"PO-Revision-Date: 2026-11-16 00:15+0000\n"
+"Last-Translator: Vesta AI\n"
+"Language-Team: Vesta AI\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "%(bank)s (%(mode)s): connection OK"
+msgstr "%(bank)s (%(mode)s): اتصال برقرار است"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "%(bank)s (%(mode)s): connection failed"
+msgstr "%(bank)s (%(mode)s): اتصال ناموفق بود"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "%s is disabled."
+msgstr "%s غیرفعال شد."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "%s is in test mode."
+msgstr "%s در حالت آزمایشی است."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "%s is not an Iranian bank gateway of Vesta Gateway."
+msgstr "%s از درگاه‌های بانکی درگاه وستا نیست."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "%s is now live."
+msgstr "%s اکنون عملیاتی است."
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\"/> Credentials are missing. Configure"
+" the bank before going live."
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle\"/> اطلاعات اتصال کامل نیست. پیش از "
+"فعال‌سازی عملیاتی، بانک را پیکربندی کنید."
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "<i class=\"fa fa-plug\"/> Test Connection"
+msgstr "<i class=\"fa fa-plug\"/> آزمایش اتصال"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__protocol
+msgid "API"
+msgstr "سرویس"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__pending_count
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_search
+msgid "Awaiting Bank"
+msgstr "در انتظار بانک"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__name
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_form
+msgid "Bank"
+msgstr "بانک"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_callback_data
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_form
+msgid "Bank Callback"
+msgstr "داده‌های بازگشتی بانک"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,name:vesta_payment.bank_mellat
+msgid "Bank Mellat"
+msgstr "بانک ملت"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,name:vesta_payment.bank_sadad
+msgid "Bank Melli (Sadad)"
+msgstr "بانک ملی (سداد)"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_order_id
+msgid "Bank Order ID"
+msgstr "شماره سفارش بانکی"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,name:vesta_payment.bank_parsian
+msgid "Bank Parsian"
+msgstr "بانک پارسیان"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,name:vesta_payment.bank_pasargad
+msgid "Bank Pasargad"
+msgstr "بانک پاسارگاد"
+
+#. module: vesta_payment
+#: model:ir.actions.act_window,name:vesta_payment.action_vesta_payment_transaction
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_list
+msgid "Bank Payments"
+msgstr "پرداخت‌های بانکی"
+
+#. module: vesta_payment
+#: model:ir.actions.act_window,name:vesta_payment.action_vesta_payment_provider
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_providers
+msgid "Bank Providers"
+msgstr "درگاه‌های بانکی"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,name:vesta_payment.bank_saman
+msgid "Bank Saman"
+msgstr "بانک سامان"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
+msgid "Bank Server"
+msgstr "سرور بانک"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_bank_token
+msgid "Bank Token"
+msgstr "توکن بانک"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_verify_state
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_search
+msgid "Bank Verification"
+msgstr "تأیید بانک"
+
+#. module: vesta_payment
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_banks
+msgid "Banks"
+msgstr "بانک‌ها"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,psp_name:vesta_payment.bank_mellat
+msgid "Behpardakht Mellat"
+msgstr "به‌پرداخت ملت"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__color
+msgid "Brand Color"
+msgstr "رنگ برند"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_card_hash
+msgid "Card Hash"
+msgstr "هش کارت"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_card_masked
+msgid "Card Number"
+msgstr "شماره کارت"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__check_date
+msgid "Check Date"
+msgstr "تاریخ آزمایش"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__check_message
+msgid "Check Message"
+msgstr "نتیجه آزمایش"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__check_ok
+msgid "Check Ok"
+msgstr "آزمایش موفق"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__amount_total
+msgid "Collected (30 days)"
+msgstr "دریافتی (۳۰ روز)"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Collected in the last 30 days, in Rials"
+msgstr "مبلغ دریافتی در ۳۰ روز گذشته، به ریال"
+
+#. module: vesta_payment
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_config
+msgid "Configuration"
+msgstr "پیکربندی"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Configure"
+msgstr "پیکربندی"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__create_uid
+msgid "Created by"
+msgstr "ایجادکننده"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__create_date
+msgid "Created on"
+msgstr "تاریخ ایجاد"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__currency_id
+msgid "Currency"
+msgstr "ارز"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid ""
+"Customers will pay with real cards on the bank's production server. "
+"Continue?"
+msgstr ""
+"مشتریان روی سرور اصلی بانک با کارت واقعی پرداخت خواهند کرد. ادامه می‌دهید؟"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_search
+msgid "Day"
+msgstr "روز"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__description
+msgid "Description"
+msgstr "توضیحات"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_bank_reference
+msgid "Digital Receipt"
+msgstr "رسید دیجیتال"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Disable"
+msgstr "غیرفعال کردن"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__disabled
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Disabled"
+msgstr "غیرفعال"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__display_name
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__display_name
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__display_name
+msgid "Display Name"
+msgstr "نام نمایشی"
+
+#. module: vesta_payment
+#: model:ir.actions.act_url,name:vesta_payment.action_vesta_payment_docs
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_docs
+msgid "Documentation"
+msgstr "راهنما"
+
+#. module: vesta_payment
+#: model:ir.model.constraint,message:vesta_payment.constraint_vesta_payment_bank_code_uniq
+msgid "Each bank can only be listed once."
+msgstr "هر بانک فقط یک بار در فهرست می‌آید."
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__edition
+msgid "Edition"
+msgstr "نسخه"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__payment_transaction__vesta_verify_state__failed
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_search
+msgid "Failed"
+msgstr "ناموفق"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__failure_count
+msgid "Failed (30 days)"
+msgstr "ناموفق (۳۰ روز)"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Failed or canceled in the last 30 days"
+msgstr "ناموفق یا لغوشده در ۳۰ روز گذشته"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__missing
+msgid "Get Pro"
+msgstr "نسخه حرفه‌ای"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Get Vesta Gateway Pro"
+msgstr "دریافت درگاه وستا حرفه‌ای"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Go Live"
+msgstr "فعال‌سازی عملیاتی"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__id
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__id
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__id
+msgid "ID"
+msgstr "شناسه"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Install"
+msgstr "نصب"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/vesta_payment_bank.py:0
+msgid "Install %s first."
+msgstr "ابتدا %s را نصب کنید."
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__installed
+msgid "Installed"
+msgstr "نصب‌شده"
+
+#. module: vesta_payment
+#: model:ir.model,name:vesta_payment.model_vesta_payment_bank
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__is_vesta_bank
+msgid "Iranian Bank Gateway"
+msgstr "درگاه بانکی ایران"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_search
+msgid "Iranian Banks"
+msgstr "بانک‌های ایرانی"
+
+#. module: vesta_payment
+#: model:ir.module.module,summary:base.module_vesta_payment
+msgid ""
+"Iranian bank payment gateways: one dashboard to install, test, enable and "
+"monitor Mellat, Saman, Melli (Sadad), Pasargad and Parsian"
+msgstr ""
+"درگاه‌های پرداخت بانک‌های ایرانی: یک داشبورد برای نصب، آزمایش، فعال‌سازی و "
+"پایش ملت، سامان، ملی (سداد)، پاسارگاد و پارسیان"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "Iranian banks only accept Rial (IRR) or Toman (IRT), not %s."
+msgstr "بانک‌های ایرانی فقط ریال (IRR) یا تومان (IRT) می‌پذیرند، نه %s."
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__is_configured
+msgid "Is Configured"
+msgstr "پیکربندی‌شده"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_check_date
+msgid "Last Connection Test"
+msgstr "آخرین آزمایش اتصال"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_check_message
+msgid "Last Test Result"
+msgstr "نتیجه آخرین آزمایش"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_check_ok
+msgid "Last Test Succeeded"
+msgstr "آخرین آزمایش موفق بود"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__write_uid
+msgid "Last Updated by"
+msgstr "آخرین ویرایش‌کننده"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__write_date
+msgid "Last Updated on"
+msgstr "آخرین ویرایش"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__live
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Live"
+msgstr "عملیاتی"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
+msgid ""
+"Live: requests go to the bank's production server (shaparak.ir). The bank\n"
+"                        only answers requests from the server IP registered on your terminal."
+msgstr ""
+"عملیاتی: درخواست‌ها به سرور اصلی بانک (shaparak.ir) می‌روند. بانک\n"
+"                        فقط به درخواست‌های IP ثبت‌شده روی ترمینال شما پاسخ می‌دهد."
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__image_128
+msgid "Logo"
+msgstr "لوگو"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__module_id
+msgid "Module"
+msgstr "ماژول"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__module_state
+msgid "Module State"
+msgstr "وضعیت ماژول"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,description:vesta_payment.bank_pasargad
+msgid ""
+"Newest Persa switch API with JWT login, confirmation, inquiry and reversal."
+msgstr "جدیدترین سرویس سوییچ پرسا با ورود JWT، تأیید، استعلام و برگشت تراکنش."
+
+#. module: vesta_payment
+#: model_terms:ir.actions.act_window,help:vesta_payment.action_vesta_payment_bank
+msgid "No bank gateway listed"
+msgstr "هیچ درگاه بانکی‌ای در فهرست نیست"
+
+#. module: vesta_payment
+#: model_terms:ir.actions.act_window,help:vesta_payment.action_vesta_payment_transaction
+msgid "No bank payment yet"
+msgstr "هنوز پرداخت بانکی‌ای انجام نشده"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__missing
+msgid "Not Available"
+msgstr "در دسترس نیست"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__uninstallable
+msgid "Not Installable"
+msgstr "قابل نصب نیست"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__uninstalled
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__uninstalled
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Not Installed"
+msgstr "نصب‌نشده"
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_transaction__vesta_order_id
+msgid ""
+"Numeric order id sent to the bank. It is unique across databases sharing a "
+"terminal."
+msgstr ""
+"شماره سفارش عددی که به بانک فرستاده می‌شود. حتی بین چند پایگاه‌داده با یک "
+"ترمینال هم یکتاست."
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__edition__community
+msgid "Open Source"
+msgstr "متن‌باز"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,psp_name:vesta_payment.bank_parsian
+msgid "Parsian E-Commerce (PEC)"
+msgstr "تجارت الکترونیک پارسیان (پک)"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,psp_name:vesta_payment.bank_pasargad
+msgid "Pasargad Electronic Payment (PEP)"
+msgstr "پرداخت الکترونیک پاسارگاد (پپ)"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,description:vesta_payment.bank_mellat
+msgid ""
+"Pay, verify and settle in one flow, over the new REST API or the classic "
+"SOAP web service."
+msgstr ""
+"پرداخت، تأیید و تسویه در یک روند؛ با سرویس جدید REST یا وب‌سرویس کلاسیک "
+"SOAP."
+
+#. module: vesta_payment
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_methods
+msgid "Payment Methods"
+msgstr "روش‌های پرداخت"
+
+#. module: vesta_payment
+#: model:ir.model,name:vesta_payment.model_payment_provider
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__provider_id
+msgid "Payment Provider"
+msgstr "درگاه پرداخت"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__psp_name
+msgid "Payment Switch"
+msgstr "شرکت پرداخت"
+
+#. module: vesta_payment
+#: model:ir.model,name:vesta_payment.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "تراکنش پرداخت"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,description:vesta_payment.bank_sadad
+msgid ""
+"Payment requests and verifications signed with the terminal's TripleDES key."
+msgstr "درخواست و تأیید پرداخت با امضای کلید TripleDES ترمینال."
+
+#. module: vesta_payment
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_transactions
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Payments"
+msgstr "پرداخت‌ها"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__transaction_count
+msgid "Payments (30 days)"
+msgstr "پرداخت‌ها (۳۰ روز)"
+
+#. module: vesta_payment
+#: model_terms:ir.actions.act_window,help:vesta_payment.action_vesta_payment_transaction
+msgid ""
+"Payments made with Iranian bank gateways appear here, with their digital "
+"receipt, RRN and masked card number."
+msgstr ""
+"پرداخت‌های انجام‌شده با درگاه‌های بانکی ایران همراه با رسید دیجیتال، شماره "
+"مرجع و شماره کارت پوشیده اینجا نمایش داده می‌شوند."
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__edition__pro
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Pro"
+msgstr "حرفه‌ای"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__code
+msgid "Provider Code"
+msgstr "کد درگاه"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_rrn
+msgid "RRN"
+msgstr "شماره مرجع (RRN)"
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_transaction__vesta_rrn
+msgid "Retrieval reference number."
+msgstr "شماره مرجع بازیابی تراکنش."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "Reverse it from the bank's merchant panel."
+msgstr "آن را از پنل پذیرندگی بانک برگشت بزنید."
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__payment_transaction__vesta_verify_state__reversed
+msgid "Reversed"
+msgstr "برگشت‌خورده"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "Reversed by the bank to the customer's card."
+msgstr "بانک مبلغ را به کارت مشتری برگرداند."
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,psp_name:vesta_payment.bank_sadad
+msgid "Sadad Electronic Payment"
+msgstr "پرداخت الکترونیک سداد"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,description:vesta_payment.bank_parsian
+msgid ""
+"Sale, confirmation bound to the order amount, and reversal over the NewIPG "
+"web services."
+msgstr ""
+"خرید، تأیید وابسته به مبلغ سفارش و برگشت تراکنش با وب‌سرویس‌های NewIPG."
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,psp_name:vesta_payment.bank_saman
+msgid "Saman Electronic Payment (SEP)"
+msgstr "پرداخت الکترونیک سامان (سپ)"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_sandbox_url
+msgid "Sandbox Server"
+msgstr "سرور آزمایشی"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,sandbox_note:vesta_payment.bank_mellat
+msgid ""
+"Sandbox: create a free Mellat terminal on banktest.ir and enter its terminal"
+" id, username and password."
+msgstr ""
+"آزمایشی: در banktest.ir یک ترمینال رایگان ملت بسازید و شناسه ترمینال، نام "
+"کاربری و رمز عبور آن را وارد کنید."
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,sandbox_note:vesta_payment.bank_sadad
+msgid ""
+"Sandbox: create a free Melli terminal on banktest.ir and enter its merchant "
+"id, terminal id and terminal key."
+msgstr ""
+"آزمایشی: در banktest.ir یک ترمینال رایگان ملی بسازید و شناسه پذیرنده، شناسه "
+"ترمینال و کلید تراکنش آن را وارد کنید."
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,sandbox_note:vesta_payment.bank_parsian
+msgid ""
+"Sandbox: create a free Parsian terminal on banktest.ir and enter its PIN "
+"(merchant login)."
+msgstr ""
+"آزمایشی: در banktest.ir یک ترمینال رایگان پارسیان بسازید و پین (کد پذیرنده) "
+"آن را وارد کنید."
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,sandbox_note:vesta_payment.bank_pasargad
+msgid ""
+"Sandbox: create a free Pasargad terminal on banktest.ir and enter its "
+"terminal number, username and password."
+msgstr ""
+"آزمایشی: در banktest.ir یک ترمینال رایگان پاسارگاد بسازید و شماره ترمینال، "
+"نام کاربری و رمز عبور آن را وارد کنید."
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,sandbox_note:vesta_payment.bank_saman
+msgid ""
+"Sandbox: create a free Saman terminal on banktest.ir and enter its terminal "
+"id."
+msgstr ""
+"آزمایشی: در banktest.ir یک ترمینال رایگان سامان بسازید و شناسه ترمینال آن را"
+" وارد کنید."
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__sequence
+msgid "Sequence"
+msgstr "ترتیب"
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_provider__vesta_sandbox_url
+msgid ""
+"Server used while the provider is in test mode. Requests to the bank's "
+"production host are sent to <server>/<bank>/<host>/<path> instead, as on "
+"banktest.ir."
+msgstr ""
+"سروری که در حالت آزمایشی استفاده می‌شود. درخواست‌های سرور اصلی بانک به جای "
+"آن به آدرس <server>/<bank>/<host>/<path> فرستاده می‌شوند، مانند banktest.ir."
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__payment_transaction__vesta_verify_state__settled
+msgid "Settled"
+msgstr "تسویه‌شده"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__state
+msgid "Status"
+msgstr "وضعیت"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Successful payments in the last 30 days"
+msgstr "پرداخت‌های موفق ۳۰ روز گذشته"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__module_name
+msgid "Technical Module"
+msgstr "ماژول فنی"
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_vesta_payment_bank__code
+msgid "Technical code of the payment provider."
+msgstr "کد فنی درگاه پرداخت."
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
+msgid "Test Connection"
+msgstr "آزمایش اتصال"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__test
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Test Mode"
+msgstr "حالت آزمایشی"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__sandbox_note
+msgid "Test Mode Notes"
+msgstr "یادداشت حالت آزمایشی"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
+msgid "Test: requests go to the sandbox server below. No real money moves."
+msgstr ""
+"آزمایشی: درخواست‌ها به سرور آزمایشی زیر می‌روند. هیچ پول واقعی جابه‌جا "
+"نمی‌شود."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "The amount confirmed by the bank doesn't match the order."
+msgstr "مبلغ تأییدشده توسط بانک با سفارش یکی نیست."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid ""
+"The bank could not be reached to confirm the payment; Odoo will retry. (%s)"
+msgstr ""
+"ارتباط با بانک برای تأیید پرداخت برقرار نشد؛ اودو دوباره تلاش می‌کند. (%s)"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid ""
+"The bank could not confirm the payment in time. If money was taken, the bank"
+" returns it to the card automatically."
+msgstr ""
+"بانک در زمان مقرر پرداخت را تأیید نکرد. اگر مبلغی کسر شده باشد، بانک آن را "
+"خودکار به کارت برمی‌گرداند."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "The bank refused the payment."
+msgstr "بانک پرداخت را نپذیرفت."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "The bank refused to reverse this payment."
+msgstr "بانک برگشت این پرداخت را نپذیرفت."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/utils.py:0
+msgid "The bank rejected the request: %s"
+msgstr "بانک درخواست را رد کرد: %s"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/utils.py:0
+msgid "The bank returned an empty response."
+msgstr "پاسخ بانک خالی بود."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/utils.py:0
+msgid "The bank returned an invalid response."
+msgstr "پاسخ بانک نامعتبر بود."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "The bank returned an unexpected response: %s"
+msgstr "پاسخ غیرمنتظره از بانک: %s"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "The customer did not complete the payment."
+msgstr "مشتری پرداخت را کامل نکرد."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/vesta_payment_bank.py:0
+msgid ""
+"The module %(module)s is not in the addons path. %(bank)s is part of Vesta "
+"Gateway Pro: copy its folder next to vesta_payment, restart Odoo and update "
+"the apps list."
+msgstr ""
+"ماژول %(module)s در مسیر ماژول‌ها نیست. %(bank)s بخشی از درگاه وستا حرفه‌ای "
+"است: پوشه آن را کنار vesta_payment بگذارید، اودو را راه‌اندازی مجدد کنید و "
+"فهرست برنامه‌ها را به‌روز کنید."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "The payment was canceled."
+msgstr "پرداخت لغو شد."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "The payment was reversed to the customer's card."
+msgstr "مبلغ به کارت مشتری برگشت داده شد."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "The sandbox server must use HTTPS."
+msgstr "سرور آزمایشی باید HTTPS باشد."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "This bank can't be tested yet."
+msgstr "این بانک هنوز قابل آزمایش نیست."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "This bank is not supported."
+msgstr "این بانک پشتیبانی نمی‌شود."
+
+#. module: vesta_payment
+#: model:ir.model.constraint,message:vesta_payment.constraint_payment_transaction_vesta_bank_reference_uniq
+msgid "This bank receipt already confirmed another payment."
+msgstr "این رسید بانکی پیش‌تر پرداخت دیگری را تأیید کرده است."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_transaction.py:0
+msgid "This bank receipt was already used to confirm another payment."
+msgstr "این رسید بانکی پیش‌تر برای تأیید پرداخت دیگری استفاده شده است."
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__to_install
+msgid "To Install"
+msgstr "در صف نصب"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__to_remove
+msgid "To Remove"
+msgstr "در صف حذف"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__to_upgrade
+msgid "To Upgrade"
+msgstr "در صف به‌روزرسانی"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_search
+msgid "Today"
+msgstr "امروز"
+
+#. module: vesta_payment
+#: model:vesta.payment.bank,description:vesta_payment.bank_saman
+msgid ""
+"Token payment with digital receipt verification and automatic reversal on "
+"amount mismatch."
+msgstr ""
+"پرداخت توکنی با تأیید رسید دیجیتال و برگشت خودکار در صورت مغایرت مبلغ."
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_transaction__vesta_bank_token
+msgid "Token, RefId or URL id issued by the bank for this payment."
+msgstr "توکن، RefId یا شناسه لینکی که بانک برای این پرداخت صادر کرده است."
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_list
+msgid "Total"
+msgstr "جمع"
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_trace_no
+msgid "Trace Number"
+msgstr "شماره پیگیری"
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_transaction__vesta_bank_reference
+msgid ""
+"Unique receipt of the bank (RefNum, SaleReferenceId, RRN, ...). A receipt "
+"can confirm only one transaction, which blocks double spending."
+msgstr ""
+"رسید یکتای بانک (RefNum، SaleReferenceId، RRN و ...). هر رسید فقط یک تراکنش "
+"را تأیید می‌کند و جلوی دوبار مصرف شدن رسید را می‌گیرد."
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/utils.py:0
+msgid "Unknown response from the bank"
+msgstr "پاسخ ناشناخته از بانک"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "Unsupported search on Iranian bank gateways."
+msgstr "این جست‌وجو روی درگاه‌های بانکی ایران پشتیبانی نمی‌شود."
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_retry_count
+msgid "Verification Retries"
+msgstr "تلاش‌های تأیید"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__payment_transaction__vesta_verify_state__pending
+msgid "Verification retry"
+msgstr "تلاش دوباره برای تأیید"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__payment_transaction__vesta_verify_state__verified
+msgid "Verified"
+msgstr "تأییدشده"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+#: model:ir.actions.act_window,name:vesta_payment.action_vesta_payment_bank
+#: model:ir.module.module,shortdesc:base.module_vesta_payment
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_root
+msgid "Vesta Gateway"
+msgstr "درگاه وستا"
+
+#. module: vesta_payment
+#: model:ir.actions.server,name:vesta_payment.cron_vesta_reconcile_ir_actions_server
+msgid "Vesta Gateway: confirm pending bank payments"
+msgstr "درگاه وستا: تأیید پرداخت‌های در انتظار بانک"
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__payment_transaction__vesta_verify_state__new
+msgid "Waiting for payment"
+msgstr "در انتظار پرداخت"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "Waiting for the bank's confirmation"
+msgstr "در انتظار تأیید بانک"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "awaiting bank"
+msgstr "در انتظار بانک"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "failed"
+msgstr "ناموفق"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
+msgid "https://sandbox.banktest.ir"
+msgstr "https://sandbox.banktest.ir"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "live"
+msgstr "عملیاتی"
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
+msgid "payments"
+msgstr "پرداخت"
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "test"
+msgstr "آزمایشی"

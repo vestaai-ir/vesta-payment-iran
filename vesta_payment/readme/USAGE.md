@@ -1,0 +1,4 @@
+- **Vesta Gateway > Banks** shows a card per bank with its mode (live, test, disabled), 30-day statistics and the last connection test, and buttons to switch modes.
+- **Vesta Gateway > Payments** lists bank payments with their digital receipt, RRN, trace number, masked card number and bank verification state.
+- Payments the bank couldn't confirm are retried every 5 minutes by the "Vesta Gateway: confirm pending bank payments" scheduled action until the bank's window closes.
+- Refund a payment with the **Refund** button of the transaction (Saman, Pasargad, Parsian).

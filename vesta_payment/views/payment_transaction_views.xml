@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_transaction_form" model="ir.ui.view">
+        <field name="name">Vesta Gateway Transaction Form</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Bank" name="vesta_bank" invisible="not vesta_order_id">
+                    <group>
+                        <group name="vesta_bank_ids">
+                            <field name="vesta_order_id"/>
+                            <field name="vesta_bank_reference"/>
+                            <field name="vesta_rrn"/>
+                            <field name="vesta_trace_no"/>
+                        </group>
+                        <group name="vesta_bank_status">
+                            <field
+                                name="vesta_verify_state"
+                                widget="badge"
+                                decoration-success="vesta_verify_state in ('verified', 'settled')"
+                                decoration-warning="vesta_verify_state in ('new', 'pending')"
+                                decoration-danger="vesta_verify_state in ('failed', 'reversed')"
+                            />
+                            <field name="vesta_retry_count" invisible="not vesta_retry_count"/>
+                            <field name="vesta_card_masked"/>
+                            <field name="vesta_card_hash" groups="base.group_system"/>
+                            <field name="vesta_bank_token" groups="base.group_system"/>
+                        </group>
+                    </group>
+                    <group string="Bank Callback" groups="base.group_no_one">
+                        <field name="vesta_callback_data" nolabel="1" colspan="2" widget="json"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="payment_transaction_list" model="ir.ui.view">
+        <field name="name">Vesta Gateway Transaction List</field>
+        <field name="model">payment.transaction</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <list string="Bank Payments" create="false">
+                <field name="create_date"/>
+                <field name="reference"/>
+                <field name="provider_id"/>
+                <field name="partner_id"/>
+                <field name="vesta_order_id" optional="hide"/>
+                <field name="vesta_bank_reference" optional="show"/>
+                <field name="vesta_rrn" optional="hide"/>
+                <field name="vesta_card_masked" optional="show"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="amount" sum="Total"/>
+                <field
+                    name="vesta_verify_state"
+                    widget="badge"
+                    optional="show"
+                    decoration-success="vesta_verify_state in ('verified', 'settled')"
+                    decoration-warning="vesta_verify_state in ('new', 'pending')"
+                    decoration-danger="vesta_verify_state in ('failed', 'reversed')"
+                />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'pending'"
+                    decoration-danger="state in ['cancel','error']"
+                    decoration-success="state in ['done','authorized']"
+                />
+                <field name="is_live" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="payment_transaction_search" model="ir.ui.view">
+        <field name="name">Vesta Gateway Transaction Search</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_search"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="after">
+                <field name="vesta_order_id"/>
+                <field name="vesta_bank_reference"/>
+                <field name="vesta_rrn"/>
+                <field name="vesta_card_masked"/>
+            </field>
+            <filter name="confirmed_transactions" position="after">
+                <filter string="Awaiting Bank" name="vesta_pending" domain="[('vesta_verify_state', 'in', ('new', 'pending'))]"/>
+                <filter string="Failed" name="vesta_failed" domain="[('state', 'in', ('error', 'cancel'))]"/>
+                <filter string="Today" name="vesta_today" domain="[('create_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+            </filter>
+            <filter name="state" position="after">
+                <filter string="Bank Verification" name="groupby_vesta_verify_state" context="{'group_by': 'vesta_verify_state'}"/>
+                <filter string="Day" name="groupby_day" context="{'group_by': 'create_date:day'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_vesta_payment_transaction" model="ir.actions.act_window">
+        <field name="name">Bank Payments</field>
+        <field name="res_model">payment.transaction</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="payment_transaction_list"/>
+        <field name="domain">[('provider_id.is_vesta_bank', '=', True)]</field>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No bank payment yet</p>
+            <p>Payments made with Iranian bank gateways appear here, with their digital receipt, RRN and masked card number.</p>
+        </field>
+    </record>
+
+</odoo>

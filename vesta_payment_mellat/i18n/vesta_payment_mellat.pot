@@ -1,0 +1,193 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* vesta_payment_mellat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0+e-20261109\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-16 00:15+0000\n"
+"PO-Revision-Date: 2026-11-16 00:15+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields.selection,name:vesta_payment_mellat.selection__payment_provider__code__mellat
+#: model:payment.method,name:vesta_payment_mellat.payment_method_mellat
+#: model:payment.provider,name:vesta_payment_mellat.payment_provider_mellat
+msgid "Bank Mellat"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.module.module,summary:base.module_vesta_payment_mellat
+msgid ""
+"Bank Mellat (Behpardakht) payment gateway for Odoo: pay, verify and settle "
+"over REST or SOAP"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#. odoo-python
+#: code:addons/vesta_payment_mellat/models/payment_transaction.py:0
+msgid "Bank Mellat did not settle the payment: %s"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#. odoo-python
+#: code:addons/vesta_payment_mellat/models/payment_transaction.py:0
+msgid "Bank Mellat did not verify the payment: %s"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#. odoo-python
+#: code:addons/vesta_payment_mellat/models/payment_transaction.py:0
+msgid "Bank Mellat refused the payment: %s"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#. odoo-python
+#: code:addons/vesta_payment_mellat/models/payment_provider.py:0
+msgid "Bank Mellat returned an empty response."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,field_description:vesta_payment_mellat.field_payment_provider__code
+msgid "Code"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,field_description:vesta_payment_mellat.field_payment_provider__display_name
+#: model:ir.model.fields,field_description:vesta_payment_mellat.field_payment_transaction__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,field_description:vesta_payment_mellat.field_payment_provider__id
+#: model:ir.model.fields,field_description:vesta_payment_mellat.field_payment_transaction__id
+msgid "ID"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,field_description:vesta_payment_mellat.field_payment_provider__mellat_password
+msgid "Mellat Password"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,field_description:vesta_payment_mellat.field_payment_provider__mellat_terminal_id
+msgid "Mellat Terminal ID"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,field_description:vesta_payment_mellat.field_payment_provider__mellat_username
+msgid "Mellat Username"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#. odoo-python
+#: code:addons/vesta_payment_mellat/models/payment_provider.py:0
+msgid ""
+"Mellat issued a payment token: the credentials and the server IP are "
+"accepted."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model_terms:ir.ui.view,arch_db:vesta_payment_mellat.payment_provider_form
+msgid "Password"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model,name:vesta_payment_mellat.model_payment_provider
+msgid "Payment Provider"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model,name:vesta_payment_mellat.model_payment_transaction
+msgid "Payment Transaction"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields.selection,name:vesta_payment_mellat.selection__payment_provider__mellat_api__rest
+msgid "REST (recommended)"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,help:vesta_payment_mellat.field_payment_provider__mellat_api
+msgid ""
+"REST is Mellat's newest API. SOAP is the classic web service; both give the "
+"same result."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields.selection,name:vesta_payment_mellat.selection__payment_provider__mellat_api__soap
+msgid "SOAP"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model_terms:ir.ui.view,arch_db:vesta_payment_mellat.payment_provider_form
+msgid "Terminal ID"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,help:vesta_payment_mellat.field_payment_provider__mellat_terminal_id
+msgid "Terminal number given by Behpardakht Mellat."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#. odoo-python
+#: code:addons/vesta_payment_mellat/models/payment_provider.py:0
+msgid "The Mellat terminal ID must be a number."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#. odoo-python
+#: code:addons/vesta_payment_mellat/models/payment_transaction.py:0
+msgid "The payment was reversed to the customer's card."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,help:vesta_payment_mellat.field_payment_provider__code
+msgid "The technical code of this payment provider."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model_terms:ir.ui.view,arch_db:vesta_payment_mellat.payment_provider_form
+msgid "Username"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.module.module,shortdesc:base.module_vesta_payment_mellat
+msgid "Vesta Gateway: Bank Mellat"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model:ir.model.fields,field_description:vesta_payment_mellat.field_payment_provider__mellat_api
+msgid "Web Service"
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model_terms:payment.provider,auth_msg:vesta_payment_mellat.payment_provider_mellat
+msgid "Your payment has been authorized."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model_terms:payment.provider,cancel_msg:vesta_payment_mellat.payment_provider_mellat
+msgid "Your payment has been cancelled."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model_terms:payment.provider,pending_msg:vesta_payment_mellat.payment_provider_mellat
+msgid "Your payment has been processed but is waiting for approval."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model_terms:payment.provider,done_msg:vesta_payment_mellat.payment_provider_mellat
+msgid "Your payment has been processed."
+msgstr ""
+
+#. module: vesta_payment_mellat
+#: model_terms:ir.ui.view,arch_db:vesta_payment_mellat.payment_provider_form
+msgid "e.g. 1234567"
+msgstr ""

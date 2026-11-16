@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">Vesta Gateway Provider Form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <field name="is_vesta_bank" invisible="1"/>
+                <button
+                    string="Test Connection"
+                    name="action_vesta_test_connection"
+                    type="object"
+                    class="btn-secondary"
+                    invisible="not is_vesta_bank or module_state != 'installed'"
+                />
+                <button
+                    string="Go Live"
+                    name="action_vesta_set_live"
+                    type="object"
+                    class="btn-primary"
+                    invisible="not is_vesta_bank or module_state != 'installed' or (is_live and is_published)"
+                    confirm="Customers will pay with real cards on the bank's production server. Continue?"
+                />
+                <button
+                    string="Test Mode"
+                    name="action_vesta_set_test"
+                    type="object"
+                    class="btn-secondary"
+                    invisible="not is_vesta_bank or module_state != 'installed' or (not is_live and is_published)"
+                />
+                <button
+                    string="Disable"
+                    name="action_vesta_disable"
+                    type="object"
+                    class="btn-secondary"
+                    invisible="not is_vesta_bank or module_state != 'installed' or not is_published"
+                />
+            </header>
+            <group name="provider_config" position="inside">
+                <group string="Bank Server" name="vesta_bank_server" invisible="not is_vesta_bank">
+                    <div colspan="2" class="text-muted" invisible="not is_live">
+                        Live: requests go to the bank's production server (shaparak.ir). The bank
+                        only answers requests from the server IP registered on your terminal.
+                    </div>
+                    <div colspan="2" class="text-muted" invisible="is_live">
+                        Test: requests go to the sandbox server below. No real money moves.
+                    </div>
+                    <field name="vesta_sandbox_url" invisible="is_live" placeholder="https://sandbox.banktest.ir"/>
+                    <field name="vesta_check_date" invisible="not vesta_check_date"/>
+                    <field
+                        name="vesta_check_message"
+                        invisible="not vesta_check_date"
+                        decoration-success="vesta_check_ok"
+                        decoration-danger="not vesta_check_ok"
+                    />
+                    <field name="vesta_check_ok" invisible="1"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="payment_provider_search" model="ir.ui.view">
+        <field name="name">Vesta Gateway Provider Search</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_search"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <filter string="Iranian Banks" name="vesta_banks" domain="[('is_vesta_bank', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_vesta_payment_provider" model="ir.actions.act_window">
+        <field name="name">Bank Providers</field>
+        <field name="res_model">payment.provider</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('is_vesta_bank', '=', True)]</field>
+        <field name="context">{'create': False}</field>
+    </record>
+
+</odoo>

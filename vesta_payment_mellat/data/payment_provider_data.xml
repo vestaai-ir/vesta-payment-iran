@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="payment_provider_mellat" model="payment.provider">
+        <field name="name">Bank Mellat</field>
+        <field name="code">mellat</field>
+        <field name="sequence">10</field>
+        <field name="image_128" type="bytes" file="vesta_payment/static/src/img/mellat.png"/>
+        <field name="module_id" ref="base.module_vesta_payment_mellat"/>
+        <field name="redirect_form_view_id" ref="payment.generic_redirect_form"/>
+    </record>
+
+    <record id="payment_method_mellat" model="payment.method">
+        <field name="name">Bank Mellat</field>
+        <field name="code">mellat</field>
+        <field name="sequence">10</field>
+        <field name="provider_id" ref="payment_provider_mellat"/>
+        <field name="image" type="bytes" file="vesta_payment/static/src/img/mellat.png"/>
+    </record>
+
+</odoo>

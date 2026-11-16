@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bank_mellat" model="vesta.payment.bank">
+        <field name="name">Bank Mellat</field>
+        <field name="code">mellat</field>
+        <field name="module_name">vesta_payment_mellat</field>
+        <field name="sequence">10</field>
+        <field name="color">#D71920</field>
+        <field name="psp_name">Behpardakht Mellat</field>
+        <field name="protocol">REST + SOAP</field>
+        <field name="edition">community</field>
+        <field name="image_128" type="bytes" file="vesta_payment/static/src/img/mellat.png"/>
+        <field name="description">Pay, verify and settle in one flow, over the new REST API or the classic SOAP web service.</field>
+        <field name="sandbox_note">Sandbox: create a free Mellat terminal on banktest.ir and enter its terminal id, username and password.</field>
+    </record>
+
+    <record id="bank_saman" model="vesta.payment.bank">
+        <field name="name">Bank Saman</field>
+        <field name="code">saman</field>
+        <field name="module_name">vesta_payment_saman</field>
+        <field name="sequence">20</field>
+        <field name="color">#1B9DD9</field>
+        <field name="psp_name">Saman Electronic Payment (SEP)</field>
+        <field name="protocol">REST (OnlinePG 3.3)</field>
+        <field name="edition">pro</field>
+        <field name="image_128" type="bytes" file="vesta_payment/static/src/img/saman.png"/>
+        <field name="description">Token payment with digital receipt verification and automatic reversal on amount mismatch.</field>
+        <field name="sandbox_note">Sandbox: create a free Saman terminal on banktest.ir and enter its terminal id.</field>
+    </record>
+
+    <record id="bank_sadad" model="vesta.payment.bank">
+        <field name="name">Bank Melli (Sadad)</field>
+        <field name="code">sadad</field>
+        <field name="module_name">vesta_payment_sadad</field>
+        <field name="sequence">30</field>
+        <field name="color">#F2A900</field>
+        <field name="psp_name">Sadad Electronic Payment</field>
+        <field name="protocol">REST (VPG v0)</field>
+        <field name="edition">pro</field>
+        <field name="image_128" type="bytes" file="vesta_payment/static/src/img/sadad.png"/>
+        <field name="description">Payment requests and verifications signed with the terminal's TripleDES key.</field>
+        <field name="sandbox_note">Sandbox: create a free Melli terminal on banktest.ir and enter its merchant id, terminal id and terminal key.</field>
+    </record>
+
+    <record id="bank_pasargad" model="vesta.payment.bank">
+        <field name="name">Bank Pasargad</field>
+        <field name="code">pasargad</field>
+        <field name="module_name">vesta_payment_pasargad</field>
+        <field name="sequence">40</field>
+        <field name="color">#E8B931</field>
+        <field name="psp_name">Pasargad Electronic Payment (PEP)</field>
+        <field name="protocol">REST (Persa switch v13)</field>
+        <field name="edition">pro</field>
+        <field name="image_128" type="bytes" file="vesta_payment/static/src/img/pasargad.png"/>
+        <field name="description">Newest Persa switch API with JWT login, confirmation, inquiry and reversal.</field>
+        <field name="sandbox_note">Sandbox: create a free Pasargad terminal on banktest.ir and enter its terminal number, username and password.</field>
+    </record>
+
+    <record id="bank_parsian" model="vesta.payment.bank">
+        <field name="name">Bank Parsian</field>
+        <field name="code">parsian</field>
+        <field name="module_name">vesta_payment_parsian</field>
+        <field name="sequence">50</field>
+        <field name="color">#A6192E</field>
+        <field name="psp_name">Parsian E-Commerce (PEC)</field>
+        <field name="protocol">SOAP (NewIPG)</field>
+        <field name="edition">pro</field>
+        <field name="image_128" type="bytes" file="vesta_payment/static/src/img/parsian.png"/>
+        <field name="description">Sale, confirmation bound to the order amount, and reversal over the NewIPG web services.</field>
+        <field name="sandbox_note">Sandbox: create a free Parsian terminal on banktest.ir and enter its PIN (merchant login).</field>
+    </record>
+
+</odoo>
