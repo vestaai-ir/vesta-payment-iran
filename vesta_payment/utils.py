@@ -15,6 +15,14 @@ _XML_PARSER = etree.XMLParser(resolve_entities=False, no_network=True, remove_co
 _DIGITS = str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789")
 
 
+class BankRefusal(ValidationError):
+    """The bank answered and refused the request (bad amount, inactive terminal, ...).
+
+    Unlike a network error or an unreadable answer, a refusal says nothing about the bank's
+    health, so it doesn't pause the bank in the automatic routing.
+    """
+
+
 def bank_now():
     """Return the current date and time in the banks' time zone (Asia/Tehran)."""
     return datetime.now(ZoneInfo(const.BANK_TIMEZONE))

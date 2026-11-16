@@ -16,6 +16,9 @@ VERIFY_WINDOW_MINUTES = 15
 ALREADY_VERIFIED = "43"
 ALREADY_SETTLED = "45"
 
+# Refusals caused by the order amount; they don't mean the bank is down.
+AMOUNT_CODES = {"25", "19"}
+
 # Result codes of Behpardakht Mellat: {code: (English, Persian)}.
 RESULT_CODES = {
     "0": ("Transaction approved", "تراکنش با موفقیت انجام شد"),

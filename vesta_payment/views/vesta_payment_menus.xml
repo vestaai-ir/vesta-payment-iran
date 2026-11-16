@@ -7,12 +7,24 @@
         <field name="target">new</field>
     </record>
 
+    <record id="action_vesta_control_center" model="ir.actions.client">
+        <field name="name">Control Center</field>
+        <field name="tag">vesta_payment.control_center</field>
+        <field name="path">vesta-gateway-control</field>
+    </record>
+
     <menuitem id="menu_vesta_payment_root"
               name="Vesta Gateway"
               web_icon="vesta_payment,static/description/icon.png"
-              action="action_vesta_payment_bank"
+              action="action_vesta_control_center"
               groups="base.group_system"
               sequence="910"/>
+
+    <menuitem id="menu_vesta_payment_control_center"
+              name="Control Center"
+              parent="menu_vesta_payment_root"
+              action="action_vesta_control_center"
+              sequence="5"/>
 
     <menuitem id="menu_vesta_payment_banks"
               name="Banks"

@@ -4,7 +4,7 @@
     "name": "Vesta Gateway",
     "summary": "Iranian bank payment gateways: one dashboard to install, test, enable and monitor"
     " Mellat, Saman, Melli (Sadad), Pasargad and Parsian",
-    "version": "20.0.1.0.0",
+    "version": "20.0.1.1.0",
     "category": "Accounting/Payment Providers",
     "website": "https://github.com/vestaai-ir/vesta-payment-iran",
     "author": "Vesta AI",
@@ -19,7 +19,13 @@
         "views/payment_provider_views.xml",
         "views/payment_transaction_views.xml",
         "views/vesta_payment_bank_views.xml",
+        "views/payment_provider_routing_views.xml",
         "views/vesta_payment_menus.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "vesta_payment/static/src/control_center/*",
+        ],
+    },
     "images": ["static/description/banner.png"],
 }

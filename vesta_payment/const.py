@@ -57,3 +57,17 @@ VERIFY_STATES = [
     ("failed", "Failed"),
     ("reversed", "Reversed"),
 ]
+
+# Automatic routing of payments between the banks.
+ROUTING_MODES = [
+    ("customer", "Customer choice"),
+    ("weighted", "Weighted distribution"),
+    ("rotation", "Rotation"),
+    ("priority", "Priority with failover"),
+]
+# A bank that failed to issue a payment token this many times in a row is paused for a while, so
+# that routing sends customers to the other banks.
+HEALTH_FAILURE_THRESHOLD = 3
+HEALTH_PAUSE_MINUTES = 10
+# Number of upcoming routing decisions shown in the control center.
+ROUTING_PREVIEW_SIZE = 24

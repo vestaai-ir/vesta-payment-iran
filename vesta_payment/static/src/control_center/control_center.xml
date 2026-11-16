@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="vesta_payment.ControlCenter">
+        <div class="o_action o_vesta_cc h-100 overflow-auto">
+            <div t-if="this.data" class="o_vesta_cc_page mx-auto px-3 px-lg-4 py-4" t-att-class="{ 'o_vesta_cc_busy': this.state.busy }">
+
+                <!-- Hero -->
+                <section class="o_vesta_cc_hero d-flex flex-wrap align-items-center gap-3 p-4 mb-4">
+                    <img src="/vesta_payment/static/description/icon.png" alt="Vesta Gateway" class="o_vesta_cc_logo"/>
+                    <div class="flex-grow-1">
+                        <h1 class="mb-1">Vesta Gateway Control Center</h1>
+                        <p class="mb-0">
+                            <t t-out="this.data.company"/> ·
+                            <t t-out="this.data.kpis.live_banks"/> live,
+                            <t t-out="this.data.kpis.test_banks"/> in test mode
+                        </p>
+                    </div>
+                    <div class="o_vesta_cc_periods btn-group" role="group">
+                        <t t-foreach="this.periods" t-as="period" t-key="period.key">
+                            <button type="button" class="btn"
+                                    t-att-class="{ 'active': this.state.period === period.key }"
+                                    t-on-click="() => this.setPeriod(period.key)" t-out="period.label"/>
+                        </t>
+                    </div>
+                    <button type="button" class="btn o_vesta_cc_ghost" t-on-click="() => this.load()" title="Refresh">
+                        <i class="oi" data-icon="refresh"/>
+                    </button>
+                </section>
+
+                <!-- KPIs -->
+                <section class="row g-3 mb-4">
+                    <div class="col-6 col-xl-3">
+                        <div class="o_vesta_cc_kpi p-3 h-100">
+                            <div class="o_vesta_cc_kpi_label"><i class="oi me-1" data-icon="payments"/>Payments</div>
+                            <div class="o_vesta_cc_kpi_value" t-out="this.number(this.data.kpis.attempts)"/>
+                            <div class="small text-muted"><t t-out="this.number(this.data.kpis.done)"/> confirmed · <t t-out="this.number(this.data.kpis.failed)"/> failed</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-xl-3">
+                        <div class="o_vesta_cc_kpi p-3 h-100">
+                            <div class="o_vesta_cc_kpi_label"><i class="oi me-1" data-icon="check_circle"/>Success rate</div>
+                            <div class="o_vesta_cc_kpi_value">
+                                <t t-if="this.data.kpis.success_rate !== null"><t t-out="this.data.kpis.success_rate"/>%</t>
+                                <t t-else="">—</t>
+                            </div>
+                            <div class="small text-muted">Confirmed among finished payments</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-xl-3">
+                        <div class="o_vesta_cc_kpi p-3 h-100">
+                            <div class="o_vesta_cc_kpi_label"><i class="oi me-1" data-icon="account_balance"/>Collected</div>
+                            <div class="o_vesta_cc_kpi_value" t-out="this.number(this.data.kpis.amount)"/>
+                            <div class="small text-muted">Rial, confirmed by the banks</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-xl-3">
+                        <div class="o_vesta_cc_kpi p-3 h-100" t-att-class="{ 'o_vesta_cc_kpi_warn': this.data.kpis.pending }">
+                            <div class="o_vesta_cc_kpi_label"><i class="oi me-1" data-icon="schedule"/>Awaiting bank</div>
+                            <div class="o_vesta_cc_kpi_value" t-out="this.number(this.data.kpis.pending)"/>
+                            <div class="small text-muted">Retried every 5 minutes</div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="row g-4 mb-4">
+                    <!-- Routing -->
+                    <div class="col-12 col-xl-8">
+                        <section class="o_vesta_cc_panel p-3 p-lg-4 h-100">
+                            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                                <h2 class="h5 mb-0 me-auto"><i class="oi me-1" data-icon="shuffle"/>Automatic routing</h2>
+                                <div class="form-check form-switch mb-0" t-att-class="{ 'invisible': !this.isAutomatic }">
+                                    <input class="form-check-input" type="checkbox" id="o_vesta_cc_show_all"
+                                           t-att-checked="this.data.show_all" t-att-disabled="!this.data.can_edit"
+                                           t-on-change="this.toggleShowAll"/>
+                                    <label class="form-check-label small" for="o_vesta_cc_show_all">Offer the other banks too</label>
+                                </div>
+                            </div>
+                            <div class="row g-2 mb-4">
+                                <t t-foreach="this.modes" t-as="mode" t-key="mode.key">
+                                    <div class="col-12 col-md-6 col-xxl-3">
+                                        <button type="button" class="o_vesta_cc_mode w-100 h-100 text-start p-3"
+                                                t-att-class="{ 'active': this.data.mode === mode.key }"
+                                                t-att-data-mode="mode.key"
+                                                t-att-disabled="!this.data.can_edit"
+                                                t-on-click="() => this.setMode(mode.key)">
+                                            <div class="d-flex align-items-center gap-2 mb-1">
+                                                <i class="oi o_vesta_cc_mode_icon" t-att-data-icon="mode.icon"/>
+                                                <span class="fw-semibold" t-out="mode.label"/>
+                                            </div>
+                                            <div class="small text-muted" t-out="mode.help"/>
+                                        </button>
+                                    </div>
+                                </t>
+                            </div>
+
+                            <h3 class="h6 mb-2">Next payments</h3>
+                            <div t-if="this.data.preview.length" class="o_vesta_cc_flow d-flex flex-wrap gap-2">
+                                <t t-foreach="this.data.preview" t-as="step" t-key="step_index">
+                                    <t t-set="bank" t-value="this.bankByCode(step.code)"/>
+                                    <div class="o_vesta_cc_step" t-att-class="{ 'o_vesta_cc_step_next': step_index === 0 }"
+                                         t-att-style="'border-color: ' + bank.color" t-att-title="bank.name">
+                                        <img t-att-src="bank.logo" t-att-alt="bank.name"/>
+                                        <span class="o_vesta_cc_step_index" t-out="step_index + 1"/>
+                                    </div>
+                                </t>
+                            </div>
+                            <div t-else="" class="text-muted small">
+                                <t t-if="this.isAutomatic">Publish a bank to start routing.</t>
+                                <t t-else="">Customers choose their bank. Pick an automatic mode to spread the payments between the banks.</t>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Distribution -->
+                    <div class="col-12 col-xl-4">
+                        <section class="o_vesta_cc_panel p-3 p-lg-4 h-100">
+                            <h2 class="h5 mb-3"><i class="oi me-1" data-icon="pie_chart"/>Distribution</h2>
+                            <div class="d-flex flex-wrap align-items-center gap-4">
+                                <div class="o_vesta_cc_donut" t-att-style="this.donutStyle">
+                                    <div class="o_vesta_cc_donut_hole">
+                                        <strong t-out="this.number(this.distribution.total)"/>
+                                        <span class="small text-muted">payments</span>
+                                    </div>
+                                </div>
+                                <ul class="list-unstyled mb-0 flex-grow-1 o_vesta_cc_legend">
+                                    <t t-foreach="this.installedBanks" t-as="bank" t-key="bank.id">
+                                        <li class="d-flex align-items-center gap-2 py-1">
+                                            <span class="o_vesta_cc_dot" t-att-style="'background: ' + bank.color"/>
+                                            <span class="me-auto text-truncate" t-out="bank.name"/>
+                                            <span class="text-muted small" t-out="this.number(bank.attempts)"/>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                            <h3 class="h6 mt-4 mb-2"><i class="oi me-1" data-icon="bar_chart"/><t t-if="this.state.period === 'today'">Today by hour</t><t t-else="">By day</t></h3>
+                            <div t-if="this.data.timeline.length" class="o_vesta_cc_timeline d-flex align-items-end gap-1">
+                                <t t-foreach="this.data.timeline" t-as="bucket" t-key="bucket.label">
+                                    <div class="o_vesta_cc_bar_wrap d-flex flex-column align-items-center" t-att-title="bucket.label + ': ' + this.bucketTotal(bucket)">
+                                        <div class="o_vesta_cc_bar d-flex flex-column-reverse" t-att-style="this.barStyle(bucket)">
+                                            <t t-foreach="this.installedBanks" t-as="bank" t-key="bank.id">
+                                                <div t-if="bucket.counts[bank.code]" class="o_vesta_cc_segment" t-att-style="'flex-grow: ' + bucket.counts[bank.code] + '; background: ' + bank.color"/>
+                                            </t>
+                                        </div>
+                                        <span class="o_vesta_cc_bar_label" t-out="bucket.label"/>
+                                    </div>
+                                </t>
+                            </div>
+                            <div t-else="" class="text-muted small">No payment in this period yet.</div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Banks -->
+                <section class="mb-4">
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                        <h2 class="h5 mb-0 me-auto"><i class="oi me-1" data-icon="account_balance"/>Banks</h2>
+                        <span class="small text-muted">The order is the order of the checkout page and of the routing.</span>
+                        <button type="button" class="btn btn-sm btn-secondary" t-on-click="this.openAllPayments">
+                            <i class="oi me-1" data-icon="payments"/>All payments
+                        </button>
+                    </div>
+
+                    <t t-foreach="this.installedBanks" t-as="bank" t-key="bank.id">
+                        <div class="o_vesta_cc_bank p-3 mb-3" t-att-data-bank="bank.code" t-att-style="'--vesta-bank-color: ' + bank.color">
+                            <div class="row g-3 align-items-center">
+                                <!-- Identity -->
+                                <div class="col-12 col-xl-3 d-flex align-items-center gap-2">
+                                    <div class="d-flex flex-column" t-if="this.data.can_edit">
+                                        <button type="button" class="btn btn-sm btn-link p-0 o_vesta_cc_move" title="Move up"
+                                                t-att-disabled="bank_first" t-on-click="() => this.moveBank(bank, 'up')">
+                                            <i class="oi" data-icon="keyboard_arrow_up"/>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-link p-0 o_vesta_cc_move" title="Move down"
+                                                t-att-disabled="bank_last" t-on-click="() => this.moveBank(bank, 'down')">
+                                            <i class="oi" data-icon="keyboard_arrow_down"/>
+                                        </button>
+                                    </div>
+                                    <img t-att-src="bank.logo" t-att-alt="bank.name" class="o_vesta_cc_bank_logo"/>
+                                    <div class="min-w-0">
+                                        <div class="d-flex flex-wrap align-items-center gap-1">
+                                            <strong class="text-truncate" t-out="bank.name"/>
+                                            <span t-if="bank.is_next" class="badge rounded-pill o_vesta_cc_next"><i class="oi me-1" data-icon="star"/>Next</span>
+                                        </div>
+                                        <div class="small text-muted text-truncate"><t t-out="bank.psp"/> · <t t-out="bank.protocol"/></div>
+                                        <div class="btn-group btn-group-sm mt-2 o_vesta_cc_states" role="group">
+                                            <button type="button" class="btn" t-att-class="{ 'active o_vesta_cc_live': bank.state === 'live' }"
+                                                    t-att-disabled="!this.data.can_edit" t-on-click="() => this.bankAction(bank, 'live')">
+                                                <i class="oi me-1" data-icon="play_circle"/>Live
+                                            </button>
+                                            <button type="button" class="btn" t-att-class="{ 'active o_vesta_cc_test': bank.state === 'test' }"
+                                                    t-att-disabled="!this.data.can_edit" t-on-click="() => this.bankAction(bank, 'test')">
+                                                <i class="oi me-1" data-icon="science"/>Test
+                                            </button>
+                                            <button type="button" class="btn" t-att-class="{ 'active o_vesta_cc_off': bank.state === 'disabled' }"
+                                                    t-att-disabled="!this.data.can_edit" t-on-click="() => this.bankAction(bank, 'disable')">
+                                                <i class="oi me-1" data-icon="power_settings_new"/>Off
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Routing settings -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <label class="small text-muted d-flex justify-content-between mb-0">
+                                        <span>Weight</span>
+                                        <span t-if="this.data.mode === 'weighted' and bank.target_share != null" class="fw-semibold text-body"><t t-out="bank.target_share"/>% of payments</span>
+                                    </label>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="range" class="form-range o_vesta_cc_weight" min="0" max="100" step="1"
+                                               t-att-value="bank.weight" t-att-disabled="!this.data.can_edit"
+                                               t-on-change="(ev) => this.updateBank(bank, 'weight', ev)"/>
+                                        <span class="o_vesta_cc_weight_value" t-out="bank.weight"/>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-1">
+                                        <label class="small text-muted flex-fill mb-0" title="Consecutive payments in rotation">Batch
+                                            <input type="number" min="1" class="form-control form-control-sm" t-att-value="bank.batch"
+                                                   t-att-disabled="!this.data.can_edit" t-on-change="(ev) => this.updateBank(bank, 'batch', ev)"/>
+                                        </label>
+                                        <label class="small text-muted flex-fill mb-0" title="0 = no limit">Max / day
+                                            <input type="number" min="0" class="form-control form-control-sm" t-att-value="bank.count_limit"
+                                                   t-att-disabled="!this.data.can_edit" t-on-change="(ev) => this.updateBank(bank, 'count_limit', ev)"/>
+                                        </label>
+                                        <label class="small text-muted flex-fill mb-0" title="Rial, 0 = no limit">Rial / day
+                                            <input type="number" min="0" step="1000000" class="form-control form-control-sm" t-att-value="bank.amount_limit"
+                                                   t-att-disabled="!this.data.can_edit" t-on-change="(ev) => this.updateBank(bank, 'amount_limit', ev)"/>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Share -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="small text-muted d-flex justify-content-between"><span>Today's share</span><span><t t-out="bank.actual_share"/>%</span></div>
+                                    <div class="o_vesta_cc_track mb-2"><div class="o_vesta_cc_fill" t-att-style="this.shareStyle(bank.actual_share, bank.color)"/></div>
+                                    <t t-if="bank.target_share != null">
+                                        <div class="small text-muted d-flex justify-content-between"><span>Target</span><span><t t-out="bank.target_share"/>%</span></div>
+                                        <div class="o_vesta_cc_track o_vesta_cc_track_target mb-2"><div class="o_vesta_cc_fill" t-att-style="this.shareStyle(bank.target_share, bank.color)"/></div>
+                                    </t>
+                                    <div class="small">
+                                        <span class="me-2"><t t-out="this.number(bank.today_done)"/> today</span>
+                                        <span class="text-muted" t-out="this.rial(bank.today_amount)"/>
+                                    </div>
+                                </div>
+
+                                <!-- Health -->
+                                <div class="col-12 col-xl-3">
+                                    <div class="d-flex flex-wrap gap-1 mb-1">
+                                        <span class="badge rounded-pill" t-att-class="{
+                                            'text-bg-success': bank.state === 'live',
+                                            'text-bg-warning': bank.state === 'test',
+                                            'text-bg-secondary': bank.state === 'disabled' }" t-out="this.stateLabel(bank)"/>
+                                        <span t-if="bank.success_rate !== null" class="badge rounded-pill o_vesta_cc_soft"><t t-out="bank.success_rate"/>% success</span>
+                                        <span t-if="bank.pending" class="badge rounded-pill text-bg-warning"><t t-out="bank.pending"/> awaiting</span>
+                                        <span t-if="bank.blocked" class="badge rounded-pill text-bg-danger" t-out="this.blockedLabel(bank)"/>
+                                        <span t-if="!bank.configured" class="badge rounded-pill text-bg-warning">Credentials missing</span>
+                                    </div>
+                                    <div t-if="bank.check_message" class="small text-truncate" t-att-class="bank.check_ok ? 'text-success' : 'text-danger'" t-att-title="bank.check_message">
+                                        <i class="oi me-1" data-icon="link"/><t t-out="bank.check_message"/>
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-1 mt-2">
+                                        <button t-if="this.data.can_edit" type="button" class="btn btn-sm btn-secondary" t-on-click="() => this.bankAction(bank, 'test_connection')">
+                                            <i class="oi me-1" data-icon="link"/>Test
+                                        </button>
+                                        <button t-if="bank.blocked === 'paused' and this.data.can_edit" type="button" class="btn btn-sm btn-warning" t-on-click="() => this.bankAction(bank, 'resume')">
+                                            <i class="oi me-1" data-icon="play_arrow"/>Resume
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-link" t-on-click="() => this.openPayments(bank)">Payments</button>
+                                        <button type="button" class="btn btn-sm btn-link" t-on-click="() => this.openBank(bank)"><i class="oi" data-icon="settings"/></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <div t-if="this.otherBanks.length" class="row g-3">
+                        <t t-foreach="this.otherBanks" t-as="bank" t-key="bank.id">
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="o_vesta_cc_bank o_vesta_cc_bank_off p-3 h-100 d-flex align-items-center gap-2" t-att-style="'--vesta-bank-color: ' + bank.color">
+                                    <img t-att-src="bank.logo" t-att-alt="bank.name" class="o_vesta_cc_bank_logo"/>
+                                    <div class="flex-grow-1 min-w-0">
+                                        <strong class="d-block text-truncate" t-out="bank.name"/>
+                                        <span class="small text-muted" t-out="bank.protocol"/>
+                                    </div>
+                                    <button t-if="bank.state === 'uninstalled' and this.data.can_edit" type="button" class="btn btn-sm btn-primary" t-on-click="() => this.installBank(bank)">Install</button>
+                                    <a t-if="bank.state === 'missing'" href="https://vestaai.ir" target="_blank" role="button" class="btn btn-sm o_vesta_cc_pro">Get Pro</a>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+
+</templates>

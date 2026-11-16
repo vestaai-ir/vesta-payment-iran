@@ -6,14 +6,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0+e-20261109\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-16 00:15+0000\n"
-"PO-Revision-Date: 2026-11-16 00:15+0000\n"
+"POT-Creation-Date: 2026-11-16 00:50+0000\n"
+"PO-Revision-Date: 2026-11-16 00:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "% of payments"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "% success"
+msgstr ""
 
 #. module: vesta_payment
 #. odoo-python
@@ -25,6 +37,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/vesta_payment/models/payment_provider.py:0
 msgid "%(bank)s (%(mode)s): connection failed"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/vesta_payment_control.py:0
+msgid "%s is back in the routing."
 msgstr ""
 
 #. module: vesta_payment
@@ -52,6 +70,24 @@ msgid "%s is now live."
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "0 = no limit"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "30 days"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "7 days"
+msgstr ""
+
+#. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid ""
 "<i class=\"fa fa-exclamation-triangle\"/> Credentials are missing. Configure"
@@ -64,14 +100,43 @@ msgid "<i class=\"fa fa-plug\"/> Test Connection"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "A rotation batch takes at least one payment."
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__protocol
 msgid "API"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "All payments"
+msgstr ""
+
+#. module: vesta_payment
+#: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form_routing
+msgid "Automatic Routing"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Automatic routing"
 msgstr ""
 
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__pending_count
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_search
 msgid "Awaiting Bank"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Awaiting bank"
 msgstr ""
 
 #. module: vesta_payment
@@ -124,6 +189,11 @@ msgid "Bank Providers"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_routing_mode
+msgid "Bank Routing"
+msgstr ""
+
+#. module: vesta_payment
 #: model:vesta.payment.bank,name:vesta_payment.bank_saman
 msgid "Bank Saman"
 msgstr ""
@@ -145,8 +215,16 @@ msgid "Bank Verification"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_banks
 msgid "Banks"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Batch"
 msgstr ""
 
 #. module: vesta_payment
@@ -157,6 +235,12 @@ msgstr ""
 #. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__color
 msgid "Brand Color"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "By day"
 msgstr ""
 
 #. module: vesta_payment
@@ -185,6 +269,12 @@ msgid "Check Ok"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Collected"
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__amount_total
 msgid "Collected (30 days)"
 msgstr ""
@@ -192,6 +282,11 @@ msgstr ""
 #. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Collected in the last 30 days, in Rials"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model,name:vesta_payment.model_res_company
+msgid "Company"
 msgstr ""
 
 #. module: vesta_payment
@@ -205,6 +300,29 @@ msgid "Configure"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Confirmed among finished payments"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_failure_streak
+msgid "Consecutive Failures"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Consecutive payments in rotation"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.actions.client,name:vesta_payment.action_vesta_control_center
+#: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_control_center
+msgid "Control Center"
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__create_uid
 msgid "Created by"
 msgstr ""
@@ -215,8 +333,36 @@ msgid "Created on"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Credentials missing"
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__currency_id
 msgid "Currency"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__res_company__vesta_routing_mode__customer
+msgid "Customer choice"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_routing_mode
+msgid ""
+"Customer choice: every live bank is listed and the customer picks one.\n"
+"Weighted distribution: each payment goes to the bank furthest below its share.\n"
+"Rotation: the banks take turns, each for its batch of consecutive payments.\n"
+"Priority with failover: the first available bank in the order takes every payment."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid ""
+"Customers choose their bank. Pick an automatic mode to spread the payments "
+"between the banks."
 msgstr ""
 
 #. module: vesta_payment
@@ -225,6 +371,28 @@ msgstr ""
 msgid ""
 "Customers will pay with real cards on the bank's production server. "
 "Continue?"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_daily_amount_limit
+msgid "Daily Amount Limit (Rial)"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_daily_count_limit
+msgid "Daily Payments Limit"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "Daily amount limit reached"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "Daily payments limit reached"
 msgstr ""
 
 #. module: vesta_payment
@@ -249,16 +417,27 @@ msgid "Disable"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__disabled
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Disabled"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_method__display_name
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__display_name
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__display_name
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__display_name
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__display_name
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_router__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Distribution"
 msgstr ""
 
 #. module: vesta_payment
@@ -273,8 +452,22 @@ msgid "Each bank can only be listed once."
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid ""
+"Each payment goes to the bank furthest below its share, so the shares follow"
+" the weights all day."
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__edition
 msgid "Edition"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "Every live bank is listed and the customer picks one."
 msgstr ""
 
 #. module: vesta_payment
@@ -294,6 +487,8 @@ msgid "Failed or canceled in the last 30 days"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__missing
 msgid "Get Pro"
 msgstr ""
@@ -310,13 +505,18 @@ msgid "Go Live"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_method__id
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__id
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__id
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__id
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__id
+#: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_router__id
 msgid "ID"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Install"
 msgstr ""
@@ -387,6 +587,9 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__live
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Live"
@@ -405,6 +608,12 @@ msgid "Logo"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Max / day"
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__module_id
 msgid "Module"
 msgstr ""
@@ -415,9 +624,33 @@ msgid "Module State"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Move down"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Move up"
+msgstr ""
+
+#. module: vesta_payment
 #: model:vesta.payment.bank,description:vesta_payment.bank_pasargad
 msgid ""
 "Newest Persa switch API with JWT login, confirmation, inquiry and reversal."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Next"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Next payments"
 msgstr ""
 
 #. module: vesta_payment
@@ -431,6 +664,12 @@ msgid "No bank payment yet"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "No payment in this period yet."
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__missing
 msgid "Not Available"
 msgstr ""
@@ -441,6 +680,8 @@ msgid "Not Installable"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__module_state__uninstalled
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__uninstalled
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
@@ -448,10 +689,40 @@ msgid "Not Installed"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_provider__vesta_routing_batch
+msgid ""
+"Number of consecutive payments this bank takes before the next one in "
+"rotation."
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,help:vesta_payment.field_payment_transaction__vesta_order_id
 msgid ""
 "Numeric order id sent to the bank. It is unique across databases sharing a "
 "terminal."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Off"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_res_company__vesta_routing_show_all
+msgid "Offer Other Banks"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Offer the other banks too"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/vesta_payment_control.py:0
+msgid "Only administrators can change the bank gateways."
 msgstr ""
 
 #. module: vesta_payment
@@ -470,10 +741,26 @@ msgid "Pasargad Electronic Payment (PEP)"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_paused_until
+msgid "Paused Until"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "Paused after failures"
+msgstr ""
+
+#. module: vesta_payment
 #: model:vesta.payment.bank,description:vesta_payment.bank_mellat
 msgid ""
 "Pay, verify and settle in one flow, over the new REST API or the classic "
 "SOAP web service."
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model,name:vesta_payment.model_payment_method
+msgid "Payment Method"
 msgstr ""
 
 #. module: vesta_payment
@@ -504,6 +791,8 @@ msgid ""
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_transactions
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Payments"
@@ -522,6 +811,13 @@ msgid ""
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__res_company__vesta_routing_mode__priority
+msgid "Priority with failover"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__edition__pro
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Pro"
@@ -533,8 +829,32 @@ msgid "Provider Code"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Publish a bank to start routing."
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_payment_transaction__vesta_rrn
 msgid "RRN"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Refresh"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Resume"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Retried every 5 minutes"
 msgstr ""
 
 #. module: vesta_payment
@@ -557,6 +877,51 @@ msgstr ""
 #. odoo-python
 #: code:addons/vesta_payment/models/payment_transaction.py:0
 msgid "Reversed by the bank to the customer's card."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid "Rial"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Rial / day"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Rial, 0 = no limit"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Rial, confirmed by the banks"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__res_company__vesta_routing_mode__rotation
+msgid "Rotation"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_routing_batch
+msgid "Rotation Batch"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,field_description:vesta_payment.field_payment_provider__vesta_routing_weight
+msgid "Routing Weight"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "Routing weights and limits can't be negative."
 msgstr ""
 
 #. module: vesta_payment
@@ -635,13 +1000,47 @@ msgid "Settled"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_provider__vesta_routing_weight
+msgid ""
+"Share of the payments this bank takes in weighted distribution, relative to "
+"the other banks: with weights 60, 30 and 10, the banks take 60%, 30% and "
+"10%."
+msgstr ""
+
+#. module: vesta_payment
 #: model:ir.model.fields,field_description:vesta_payment.field_vesta_payment_bank__state
 msgid "Status"
 msgstr ""
 
 #. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_provider__vesta_daily_amount_limit
+msgid ""
+"Stop routing payments to this bank once it collected this amount today, for "
+"instance the daily ceiling of the terminal. 0 means no limit."
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_provider__vesta_daily_count_limit
+msgid ""
+"Stop routing payments to this bank once it confirmed this many payments "
+"today. 0 means no limit."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Success rate"
+msgstr ""
+
+#. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "Successful payments in the last 30 days"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Target"
 msgstr ""
 
 #. module: vesta_payment
@@ -655,11 +1054,19 @@ msgid "Technical code of the payment provider."
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Test"
+msgstr ""
+
+#. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
 msgid "Test Connection"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
 #: model:ir.model.fields.selection,name:vesta_payment.selection__vesta_payment_bank__state__test
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_provider_form
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
@@ -695,6 +1102,13 @@ msgstr ""
 msgid ""
 "The bank could not confirm the payment in time. If money was taken, the bank"
 " returns it to the card automatically."
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_payment_provider__vesta_paused_until
+msgid ""
+"The bank failed to issue payment tokens several times in a row: routing "
+"skips it until this time."
 msgstr ""
 
 #. module: vesta_payment
@@ -734,9 +1148,25 @@ msgid "The bank returned an unexpected response: %s"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid ""
+"The banks take turns in their order, each for its batch of consecutive "
+"payments."
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-python
 #: code:addons/vesta_payment/models/payment_transaction.py:0
 msgid "The customer did not complete the payment."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
+msgid ""
+"The first bank takes every payment; the next one steps in when it is paused "
+"or full."
 msgstr ""
 
 #. module: vesta_payment
@@ -746,6 +1176,12 @@ msgid ""
 "The module %(module)s is not in the addons path. %(bank)s is part of Vesta "
 "Gateway Pro: copy its folder next to vesta_payment, restart Odoo and update "
 "the apps list."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "The order is the order of the checkout page and of the routing."
 msgstr ""
 
 #. module: vesta_payment
@@ -805,8 +1241,22 @@ msgid "To Upgrade"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.js:0
 #: model_terms:ir.ui.view,arch_db:vesta_payment.payment_transaction_search
 msgid "Today"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Today by hour"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Today's share"
 msgstr ""
 
 #. module: vesta_payment
@@ -840,8 +1290,20 @@ msgstr ""
 
 #. module: vesta_payment
 #. odoo-python
+#: code:addons/vesta_payment/models/vesta_payment_control.py:0
+msgid "Unknown action: %s"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
 #: code:addons/vesta_payment/utils.py:0
 msgid "Unknown response from the bank"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/vesta_payment_control.py:0
+msgid "Unknown routing mode: %s"
 msgstr ""
 
 #. module: vesta_payment
@@ -866,12 +1328,25 @@ msgid "Verified"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
 #. odoo-python
 #: code:addons/vesta_payment/models/payment_provider.py:0
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model:ir.actions.act_window,name:vesta_payment.action_vesta_payment_bank
 #: model:ir.module.module,shortdesc:base.module_vesta_payment
 #: model:ir.ui.menu,name:vesta_payment.menu_vesta_payment_root
 msgid "Vesta Gateway"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Vesta Gateway Control Center"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model,name:vesta_payment.model_vesta_payment_router
+msgid "Vesta Gateway Routing"
 msgstr ""
 
 #. module: vesta_payment
@@ -890,11 +1365,42 @@ msgid "Waiting for the bank's confirmation"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "Weight"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields.selection,name:vesta_payment.selection__res_company__vesta_routing_mode__weighted
+msgid "Weighted distribution"
+msgstr ""
+
+#. module: vesta_payment
+#: model:ir.model.fields,help:vesta_payment.field_res_company__vesta_routing_show_all
+msgid ""
+"With automatic routing, still list the other banks under the chosen one."
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "awaiting"
+msgstr ""
+
+#. module: vesta_payment
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "awaiting bank"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "confirmed ·"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "failed"
 msgstr ""
@@ -905,12 +1411,26 @@ msgid "https://sandbox.banktest.ir"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "in test mode"
+msgstr ""
+
+#. module: vesta_payment
 #. odoo-python
 #: code:addons/vesta_payment/models/payment_provider.py:0
 msgid "live"
 msgstr ""
 
 #. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "live,"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
 #: model_terms:ir.ui.view,arch_db:vesta_payment.vesta_payment_bank_kanban
 msgid "payments"
 msgstr ""
@@ -918,5 +1438,17 @@ msgstr ""
 #. module: vesta_payment
 #. odoo-python
 #: code:addons/vesta_payment/models/payment_provider.py:0
+msgid "routed to another bank"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-python
+#: code:addons/vesta_payment/models/payment_provider.py:0
 msgid "test"
+msgstr ""
+
+#. module: vesta_payment
+#. odoo-javascript
+#: code:addons/vesta_payment/static/src/control_center/control_center.xml:0
+msgid "today"
 msgstr ""

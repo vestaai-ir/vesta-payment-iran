@@ -125,9 +125,12 @@ class PaymentTransaction(models.Model):
         try:
             rendering_values = self._vesta_request_payment()
         except ValidationError as error:
+            if not isinstance(error, utils.BankRefusal):  # The bank is unreachable or broken
+                self.provider_id._vesta_register_failure()
             self.vesta_verify_state = "failed"
             self._set_error(str(error.args[0] if error.args else error))
             return {}
+        self.provider_id._vesta_register_success()
         _logger.info(
             "Bank %s issued a payment token for transaction %s (order %s).",
             self.provider_code,

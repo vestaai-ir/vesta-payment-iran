@@ -3,12 +3,14 @@
 
 import json
 import re
+from datetime import timedelta
 from pprint import pformat
 from urllib.parse import urlsplit
 
 import requests
 
 from odoo import api, fields, models
+from odoo.addons.payment import utils as payment_utils
 from odoo.addons.payment.logging import get_payment_logger
 from odoo.addons.vesta_payment import const, utils
 from odoo.exceptions import UserError, ValidationError
@@ -34,6 +36,36 @@ class PaymentProvider(models.Model):
     vesta_check_ok = fields.Boolean(string="Last Test Succeeded", readonly=True, copy=False)
     vesta_check_message = fields.Char(string="Last Test Result", readonly=True, copy=False)
 
+    # Automatic routing (see vesta.payment.router)
+    vesta_routing_weight = fields.Integer(
+        string="Routing Weight",
+        default=10,
+        help="Share of the payments this bank takes in weighted distribution, relative to the"
+        " other banks: with weights 60, 30 and 10, the banks take 60%, 30% and 10%.",
+    )
+    vesta_routing_batch = fields.Integer(
+        string="Rotation Batch",
+        default=1,
+        help="Number of consecutive payments this bank takes before the next one in rotation.",
+    )
+    vesta_daily_count_limit = fields.Integer(
+        string="Daily Payments Limit",
+        help="Stop routing payments to this bank once it confirmed this many payments today. 0 means no limit.",
+    )
+    vesta_daily_amount_limit = fields.Float(
+        string="Daily Amount Limit (Rial)",
+        digits=(16, 0),
+        help="Stop routing payments to this bank once it collected this amount today, for"
+        " instance the daily ceiling of the terminal. 0 means no limit.",
+    )
+    vesta_failure_streak = fields.Integer(string="Consecutive Failures", readonly=True, copy=False)
+    vesta_paused_until = fields.Datetime(
+        string="Paused Until",
+        readonly=True,
+        copy=False,
+        help="The bank failed to issue payment tokens several times in a row: routing skips it until this time.",
+    )
+
     # === COMPUTE METHODS === #
 
     @api.depends("code")
@@ -55,6 +87,19 @@ class PaymentProvider(models.Model):
         return supported_currencies
 
     # === CONSTRAINT METHODS === #
+
+    @api.constrains(
+        "vesta_routing_weight", "vesta_routing_batch", "vesta_daily_count_limit", "vesta_daily_amount_limit"
+    )
+    def _check_vesta_routing_values(self):
+        for provider in self:
+            if (
+                min(provider.vesta_routing_weight, provider.vesta_daily_count_limit, provider.vesta_daily_amount_limit)
+                < 0
+            ):
+                raise ValidationError(self.env._("Routing weights and limits can't be negative."))
+            if provider.vesta_routing_batch < 1:
+                raise ValidationError(self.env._("A rotation batch takes at least one payment."))
 
     @api.constrains("vesta_sandbox_url")
     def _check_vesta_sandbox_url(self):
@@ -121,6 +166,47 @@ class PaymentProvider(models.Model):
                 "next": {"type": "ir.actions.client", "tag": "soft_reload"},
             },
         }
+
+    # === BUSINESS METHODS - ROUTING === #
+
+    @api.model
+    def _find_available_providers(self, company_id, partner_id, amount, *, is_validation=False, report=None, **kwargs):
+        """Override of `payment` to apply the automatic routing between Iranian banks.
+
+        The provider chosen by routing is passed in the context so that its payment method is
+        listed first (see `payment.method._sort_by_display_order`).
+        """
+        providers = super()._find_available_providers(
+            company_id, partner_id, amount, is_validation=is_validation, report=report, **kwargs
+        )
+        if is_validation or kwargs.get("force_tokenization") or not providers.filtered("is_vesta_bank"):
+            return providers
+        company = self.env["res.company"].browse(company_id).exists() or self.env.company
+        shown, chosen = self.env["vesta.payment.router"]._route(providers, company)
+        payment_utils.add_to_report(
+            report, providers - shown, available=False, reason=self.env._("routed to another bank")
+        )
+        return shown.with_context(vesta_routed_provider_id=chosen.id)
+
+    def _vesta_register_failure(self):
+        """Count a failed token request; pause the bank after several failures in a row."""
+        self.ensure_one()
+        streak = self.vesta_failure_streak + 1
+        values = {"vesta_failure_streak": streak}
+        if streak >= const.HEALTH_FAILURE_THRESHOLD:
+            values["vesta_paused_until"] = fields.Datetime.now() + timedelta(minutes=const.HEALTH_PAUSE_MINUTES)
+            _logger.warning("Pausing %s in routing after %s failures in a row.", self.name, streak)
+        self.sudo().write(values)
+
+    def _vesta_register_success(self):
+        """Reset the failure streak after the bank issued a payment token."""
+        self.ensure_one()
+        if self.vesta_failure_streak or self.vesta_paused_until:
+            self.sudo().write({"vesta_failure_streak": 0, "vesta_paused_until": False})
+
+    def action_vesta_resume(self):
+        """Put a paused bank back in the routing."""
+        self.sudo().write({"vesta_failure_streak": 0, "vesta_paused_until": False})
 
     # === BUSINESS METHODS === #
 

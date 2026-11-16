@@ -1,0 +1,323 @@
+// Vesta brand: dark tile with an amber → red → violet flame.
+$vesta-ink: #111318;
+$vesta-amber: #fbb848;
+$vesta-red: #e8392e;
+$vesta-violet: #5b3cc4;
+$vesta-gradient: linear-gradient(135deg, $vesta-amber 0%, $vesta-red 45%, $vesta-violet 100%);
+
+.o_vesta_cc {
+    --vesta-cc-track: #{rgba($vesta-ink, 0.08)};
+    background-color: $o-webclient-background-color;
+
+    .o_vesta_cc_page {
+        max-width: 1440px;
+        transition: opacity 0.15s;
+
+        &.o_vesta_cc_busy {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+    }
+
+    .o_vesta_cc_hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1.25rem;
+        color: #fff;
+        background: $vesta-ink;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: auto -10% -60% 40%;
+            height: 160%;
+            background: $vesta-gradient;
+            opacity: 0.35;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-weight: 800;
+            color: #fff;
+        }
+
+        p {
+            color: rgba(#fff, 0.75);
+        }
+    }
+
+    .o_vesta_cc_logo {
+        width: 64px;
+        height: 64px;
+    }
+
+    .o_vesta_cc_periods .btn,
+    .o_vesta_cc_ghost {
+        color: #fff;
+        border: 1px solid rgba(#fff, 0.25);
+        background: rgba(#fff, 0.06);
+
+        &.active,
+        &:hover {
+            background: rgba(#fff, 0.2);
+            color: #fff;
+        }
+    }
+
+    .o_vesta_cc_kpi,
+    .o_vesta_cc_panel,
+    .o_vesta_cc_bank {
+        border-radius: 1rem;
+        background: $o-view-background-color;
+        border: 1px solid $border-color;
+    }
+
+    .o_vesta_cc_kpi_label {
+        color: $text-muted;
+        font-size: 0.85rem;
+    }
+
+    .o_vesta_cc_kpi_value {
+        font-size: 1.9rem;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    .o_vesta_cc_kpi_warn .o_vesta_cc_kpi_value {
+        color: $warning;
+    }
+
+    .o_vesta_cc_mode {
+        border-radius: 0.85rem;
+        border: 1px solid $border-color;
+        background: $o-view-background-color;
+        transition: border-color 0.15s, box-shadow 0.15s;
+
+        &:hover:not(:disabled) {
+            border-color: $vesta-red;
+        }
+
+        &.active {
+            border-color: $vesta-red;
+            box-shadow: 0 0 0 3px rgba($vesta-red, 0.15);
+
+            .o_vesta_cc_mode_icon {
+                background: $vesta-gradient;
+                color: #fff;
+            }
+        }
+    }
+
+    .o_vesta_cc_mode_icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.6rem;
+        background: var(--vesta-cc-track);
+    }
+
+    .o_vesta_cc_step {
+        position: relative;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 2px solid;
+        background: #fff;
+        padding: 4px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        &.o_vesta_cc_step_next {
+            width: 56px;
+            height: 56px;
+            box-shadow: 0 0 0 4px rgba($vesta-amber, 0.45);
+        }
+    }
+
+    .o_vesta_cc_step_index {
+        position: absolute;
+        bottom: -6px;
+        inset-inline-end: -6px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 4px;
+        border-radius: 9px;
+        background: $vesta-ink;
+        color: #fff;
+        font-size: 0.65rem;
+        line-height: 18px;
+        text-align: center;
+    }
+
+    .o_vesta_cc_donut {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .o_vesta_cc_donut_hole {
+        position: absolute;
+        inset: 22%;
+        border-radius: 50%;
+        background: $o-view-background-color;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        strong {
+            font-size: 1.4rem;
+        }
+    }
+
+    .o_vesta_cc_legend {
+        min-width: 140px;
+    }
+
+    .o_vesta_cc_dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .o_vesta_cc_timeline {
+        height: 130px;
+        overflow-x: auto;
+        padding-bottom: 1.2rem;
+    }
+
+    .o_vesta_cc_bar_wrap {
+        position: relative;
+        height: 100%;
+        min-width: 18px;
+        flex: 1 0 18px;
+        justify-content: flex-end;
+    }
+
+    .o_vesta_cc_bar {
+        width: 100%;
+        min-height: 2px;
+        border-radius: 4px 4px 0 0;
+        overflow: hidden;
+        background: var(--vesta-cc-track);
+    }
+
+    .o_vesta_cc_segment {
+        flex-basis: 0;
+    }
+
+    .o_vesta_cc_bar_label {
+        position: absolute;
+        bottom: -1.2rem;
+        font-size: 0.6rem;
+        color: $text-muted;
+        white-space: nowrap;
+    }
+
+    .o_vesta_cc_bank {
+        border-inline-start: 6px solid var(--vesta-bank-color);
+    }
+
+    .o_vesta_cc_bank_off {
+        opacity: 0.85;
+    }
+
+    .o_vesta_cc_bank_logo {
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+        border-radius: 0.75rem;
+        background: #fff;
+        border: 1px solid $border-color;
+        padding: 3px;
+        flex-shrink: 0;
+    }
+
+    .o_vesta_cc_move {
+        line-height: 1;
+        color: $text-muted;
+    }
+
+    .o_vesta_cc_next {
+        background: $vesta-gradient;
+        color: #fff;
+    }
+
+    .o_vesta_cc_states .btn {
+        border: 1px solid $border-color;
+        color: $text-muted;
+
+        &.active.o_vesta_cc_live {
+            background: $success;
+            border-color: $success;
+            color: #fff;
+        }
+
+        &.active.o_vesta_cc_test {
+            background: $warning;
+            border-color: $warning;
+            color: $vesta-ink;
+        }
+
+        &.active.o_vesta_cc_off {
+            background: $secondary;
+            border-color: $secondary;
+            color: #fff;
+        }
+    }
+
+    .o_vesta_cc_weight {
+        accent-color: var(--vesta-bank-color);
+    }
+
+    .o_vesta_cc_weight_value {
+        min-width: 2.2rem;
+        text-align: end;
+        font-weight: 700;
+    }
+
+    .o_vesta_cc_track {
+        height: 8px;
+        border-radius: 4px;
+        background: var(--vesta-cc-track);
+        overflow: hidden;
+    }
+
+    .o_vesta_cc_track_target .o_vesta_cc_fill {
+        opacity: 0.45;
+        background-image: repeating-linear-gradient(45deg, rgba(#fff, 0.4) 0 4px, transparent 4px 8px) !important;
+    }
+
+    .o_vesta_cc_fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.3s;
+    }
+
+    .o_vesta_cc_soft {
+        background: var(--vesta-cc-track);
+        color: inherit;
+        font-weight: 600;
+    }
+
+    .o_vesta_cc_pro {
+        background: $vesta-gradient;
+        color: #fff;
+        border: 0;
+    }
+}

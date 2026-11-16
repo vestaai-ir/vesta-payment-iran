@@ -37,7 +37,8 @@ class PaymentTransaction(models.Model):
         )
         code, _sep, ref_id = result.partition(",")
         if code.strip() != "0" or not ref_id.strip():
-            raise ValidationError(
+            error_class = utils.BankRefusal if code.strip() in const.AMOUNT_CODES else ValidationError
+            raise error_class(
                 self.env._(
                     "Bank Mellat refused the payment: %s",
                     utils.bank_message(self.env, const.RESULT_CODES, code.strip()),

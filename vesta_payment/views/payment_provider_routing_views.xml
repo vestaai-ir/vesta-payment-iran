@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_provider_form_routing" model="ir.ui.view">
+        <field name="name">Vesta Gateway Provider Routing</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="vesta_payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <group name="vesta_bank_server" position="after">
+                <group string="Automatic Routing" name="vesta_routing" invisible="not is_vesta_bank">
+                    <field name="vesta_routing_weight"/>
+                    <field name="vesta_routing_batch"/>
+                    <field name="vesta_daily_count_limit"/>
+                    <field name="vesta_daily_amount_limit"/>
+                    <field name="vesta_failure_streak" invisible="not vesta_failure_streak"/>
+                    <field name="vesta_paused_until" invisible="not vesta_paused_until"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>

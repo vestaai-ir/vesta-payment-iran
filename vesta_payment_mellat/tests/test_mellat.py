@@ -181,3 +181,68 @@ class TestMellat(VestaPaymentCommon):
         self.mellat.mellat_password = False
         with self.assertRaises(ValidationError):
             self.mellat.action_vesta_set_live()
+
+    def _checkout_codes(self):
+        """Return the providers and the payment methods the checkout would show."""
+        providers = (
+            self.env["payment.provider"]
+            .sudo()
+            ._find_available_providers(self.company.id, self.partner.id, self.amount, currency_id=self.currency.id)
+        )
+        methods = providers._find_available_payment_methods(self.partner.id, currency_id=self.currency.id)
+        return providers, methods._sort_by_display_order()
+
+    @mute_logger("odoo.addons.vesta_payment.models.payment_provider")
+    def test_checkout_routing(self):
+        """Two Mellat terminals: routing shows one of them, or lists the chosen one first."""
+        second = self.mellat.copy({"name": "Bank Mellat 2", "sequence": self.mellat.sequence + 1})
+        second.write({"is_published": True, "mellat_terminal_id": "7654321"})
+        second.payment_method_ids.active = True
+        self.mellat.is_published = True
+        terminals = self.mellat | second
+        self.env["payment.provider"].search(
+            [("is_vesta_bank", "=", True), ("id", "not in", terminals.ids)]
+        ).active = False
+
+        self.company.vesta_routing_mode = "customer"
+        providers, _methods = self._checkout_codes()
+        self.assertEqual(providers.filtered("is_vesta_bank"), terminals)
+
+        self.company.vesta_routing_mode = "priority"
+        providers, _methods = self._checkout_codes()
+        self.assertEqual(providers.filtered("is_vesta_bank"), self.mellat)
+
+        for _i in range(3):
+            self.mellat._vesta_register_failure()
+        providers, _methods = self._checkout_codes()
+        self.assertEqual(providers.filtered("is_vesta_bank"), second, "The paused terminal is skipped")
+
+        self.mellat.action_vesta_resume()
+        self.company.vesta_routing_show_all = True
+        second.sequence = self.mellat.sequence - 1  # The second terminal is now first in priority
+        providers, methods = self._checkout_codes()
+        self.assertEqual(providers.filtered("is_vesta_bank"), terminals)
+        self.assertEqual(methods.filtered(lambda pm: pm.provider_id.is_vesta_bank)[:1].provider_id, second)
+
+    def test_amount_refusal_does_not_pause(self):
+        tx = self._create_bank_transaction(self.mellat)
+        with patch(CALL, new=bank({"bpPayRequest": "25"})):
+            tx._get_processing_values()
+        self.assertEqual(self.mellat.vesta_failure_streak, 0, "An invalid amount says nothing about the bank's health")
+        tx2 = self._create_bank_transaction(self.mellat, reference="TX-2")
+        with patch(CALL, new=bank({"bpPayRequest": "421"})):
+            tx2._get_processing_values()
+        self.assertEqual(self.mellat.vesta_failure_streak, 1)
+
+    def test_control_center_data(self):
+        data = self.env["vesta.payment.bank"].get_control_center("week")
+        mellat = next(row for row in data["banks"] if row["code"] == "mellat")
+        self.assertEqual(mellat["provider_id"], self.mellat.id)
+        self.env["vesta.payment.bank"].set_routing("weighted", False)
+        self.assertEqual(self.company.vesta_routing_mode, "weighted")
+        bank_record = self.env.ref("vesta_payment.bank_mellat")
+        bank_record.update_bank({"weight": 70, "batch": 2, "count_limit": 100, "amount_limit": 5_000_000})
+        self.assertEqual(
+            (self.mellat.vesta_routing_weight, self.mellat.vesta_routing_batch, self.mellat.vesta_daily_amount_limit),
+            (70, 2, 5_000_000),
+        )
