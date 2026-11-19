@@ -6,7 +6,7 @@
     " Mellat, Saman, Melli (Sadad), Pasargad and Parsian",
     "version": "20.0.1.2.0",
     "category": "Accounting/Payment Providers",
-    "website": "https://github.com/vestaai-ir/vesta-payment-iran",
+    "website": "https://vestaai.ir/odoo/modules/vesta-gateway",
     "author": "Vesta AI",
     "license": "LGPL-3",
     "application": True,

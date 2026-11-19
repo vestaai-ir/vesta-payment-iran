@@ -5,7 +5,7 @@
     "summary": "Bank Mellat (Behpardakht) payment gateway for Odoo: pay, verify and settle over REST or SOAP",
     "version": "20.0.1.2.0",
     "category": "Accounting/Payment Providers",
-    "website": "https://github.com/vestaai-ir/vesta-payment-iran",
+    "website": "https://vestaai.ir/odoo/modules/vesta-gateway",
     "author": "Vesta AI",
     "license": "LGPL-3",
     "installable": True,
